@@ -1,0 +1,1 @@
+# Projects for the course _Intelligenza Artificiale_ 
