@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,9 +24,12 @@ public class ProblemFormulation {
      * Returns the possible actions for a given state.
      */
     public List<State> getActions(State s) {
-        // Get nearby states (cities) from the oracle.
-        return getOracle().getNearbyCities(s);
+        // Get nearby states (cities) from the oracle in a random order to allow different solutions.
+        List<State> actions = getOracle().getNearbyCities(s);
+        Collections.shuffle(actions);
+        return actions;
     }
+
 
     /**
      * Transition model: returns the state resulting from applying action a in state s.
