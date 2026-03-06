@@ -4,21 +4,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represent the Romania road map as a weighted undirected graph.
- * It acts like an oracle that can be queried to retrieve specific information.
+ * Represent the "Romania road map" as a weighted undirected graph.
+ * It acts like an oracle that can be queried to retrieve specific
+ * information: the public interface exposed here, allows two kinds
+ * of queries:
+ *  - Get nearby cities;
+ *  - Get the cost between two cities;
+ * Both are then invoked in the proper way in the problem formulation.
  */
 public class World {
 
-    // Fields
+
     private static World instance;
+
     private final Map< State, Map<State,Integer> > romaniaRoadMap;
 
     /**
-     * Private constructor.
+     * Private constructor (one World at time).
      */
     private World() {
 
-        // 1. Create the empty map-
+        // 1. Create the empty map.
         romaniaRoadMap = new HashMap<>();
 
         // 2. Initialize empty adjacency maps for all cities.
@@ -26,7 +32,7 @@ public class World {
             romaniaRoadMap.put( city, new HashMap<>() );
         }
 
-        // 3. Populate the Romania road map based on slides.
+        // 3. Populate the Romania road map (based on the graph presented in slides).
         addRoad(State.ARAD, State.ZERIND, 75);
         addRoad(State.ARAD, State.SIBIU, 140);
         addRoad(State.ARAD, State.TIMISOARA, 118);
@@ -52,24 +58,8 @@ public class World {
         addRoad(State.IASI, State.NEAMT, 87);
     }
 
-    /**
-     * Get the singleton instance.
-     */
-    protected static World getInstance() {
-        if (instance == null) {
-            instance = new World();
-        }
-        return instance;
-    }
 
-    /**
-     * Private helper method to fill the Romania road map.
-     */
-    private void addRoad(State a, State b, int cost) {
-        romaniaRoadMap.get(a).put(b, cost);
-        romaniaRoadMap.get(b).put(a, cost);
-    }
-
+    // === Public Interface to Interact with the World ==
     /**
      * Return nearby cities.
      */
@@ -84,6 +74,28 @@ public class World {
     protected Integer getDistanceBetween(State a, State b) {
         return romaniaRoadMap.get(a).get(b);
     }
+
+    // === "Structural" Methods ===
+
+    /**
+     * Get the singleton instance.
+     */
+    public static World getInstance() {
+        if (instance == null) {
+            instance = new World();
+        }
+        return instance;
+    }
+
+    /**
+     * Private helper method to fill the Romania road map.
+     */
+    private void addRoad(State a, State b, int cost) {
+        romaniaRoadMap.get(a).put(b, cost);
+        romaniaRoadMap.get(b).put(a, cost);
+    }
+
+    // === Utility methods ===
 
     /**
      * Pretty format the world.
@@ -116,7 +128,6 @@ public class World {
 
         return sb.toString();
     }
-
 
 }
 

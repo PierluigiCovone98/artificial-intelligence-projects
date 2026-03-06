@@ -24,7 +24,7 @@ public class ProblemFormulation {
      * Returns the possible actions for a given state.
      */
     public List<State> getActions(State s) {
-        // Get nearby states (cities) from the oracle in a random order to allow different solutions.
+        // Get nearby states (cities) from the oracle in a random order
         List<State> actions = getOracle().getNearbyCities(s);
         Collections.shuffle(actions);
         return actions;
