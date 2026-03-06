@@ -22,7 +22,7 @@ public class Action {
     }
 
     /**
-     * Get the "from" State.
+     * Get the "to" State.
      */
     public State getTo() {
         return to;

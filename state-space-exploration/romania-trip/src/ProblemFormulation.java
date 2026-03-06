@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,11 +11,6 @@ public class ProblemFormulation {
 
     private final State initialState;
 
-    /*
-    This allows the user to create multiple (different) instances of the problem,
-    by setting different objectives (instead of hardcode one specific "objective"
-    with a method).
-     */
     private final State objective;
 
     /**
@@ -22,24 +18,33 @@ public class ProblemFormulation {
      */
     public ProblemFormulation(State initialState, State objective) {
         this.initialState = initialState;
+
         this.objective = objective;
     }
 
     /**
-     * Returns the possible actions for a given state
-     * (so: a list of states reachable from the State "s").
+     * Returns the possible Actions for a given state.
      */
-    public List<State> getActions(State s) {
-        return getWorld().getNearbyCities(s);
+    public List<Action> getActions(State s) {
+
+        List<Action> actions = new ArrayList<Action>();
+
+        // For each reachable state from "s", create the corresponding action
+        for ( State city : getWorld().getNearbyCities(s) ) {
+            actions.add(new Action(s, city));
+        }
+
+        return actions;
     }
 
     /**
      * Transition model: returns the State resulting from applying
      * action "a" in state "s".
      */
-    public State getResult(State s, State a) {
-        return a;
+    public State getResult(State s, Action a) {
+        return a.getTo();
     }
+
     /**
      * Returns true if the given state satisfies the objective.
      */
@@ -50,7 +55,7 @@ public class ProblemFormulation {
     /**
      * Returns the step cost between two adjacent states.
      */
-    private Integer getStepCost(State a, State b ) {
+    private Integer getStepCost( State a, State b ) {
         return getWorld().getDistanceBetween(a, b);
     }
 
