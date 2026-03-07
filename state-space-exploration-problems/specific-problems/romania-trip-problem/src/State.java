@@ -1,5 +1,5 @@
 /**
- * A state is label that identifies a city in Romania.
+ * State definition for the "Romania Trip" problem.
  */
 public enum State {
     ARAD,

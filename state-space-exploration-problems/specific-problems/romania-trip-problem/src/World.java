@@ -5,18 +5,16 @@ import java.util.Map;
 
 /**
  * Represent the "Romania road map" as a weighted undirected graph.
- * It acts like an oracle that can be queried to retrieve specific
- * information: the public interface exposed here, allows two kinds
- * of queries:
- *  - Get nearby cities;
- *  - Get the cost between two cities;
- * Both are then invoked in the proper way in the problem formulation.
+ * It acts like an oracle that can be queried to retrieve information through the public interface, which allows to:
+ *  - Get cities that are reachable from a given one;
+ *  - Get the distance between two cities.
  */
 public class World {
 
-
+    // Singleton
     private static World instance;
 
+    // Romania Map representation.
     private final Map< State, Map<State,Integer> > romaniaRoadMap;
 
     /**
@@ -60,18 +58,18 @@ public class World {
 
 
     // === Public Interface to Interact with the World ==
+
     /**
-     * Return nearby cities.
+     * Return nearby cities for a given city.
      */
-    protected List<State> getNearbyCities(State s) {
+    public List<State> getNearbyCities(State s) {
         return new ArrayList<State>( romaniaRoadMap.get(s).keySet() );
     }
 
     /**
-     * Return a specific cost.
-     * We assume that the pair of cities is valid.
+     * Return a specific distance (the cost).
      */
-    protected Integer getDistanceBetween(State a, State b) {
+    public Integer getDistanceBetweenCities(State a, State b) {
         return romaniaRoadMap.get(a).get(b);
     }
 
@@ -88,7 +86,7 @@ public class World {
     }
 
     /**
-     * Private helper method to fill the Romania road map.
+     * Private helper method to easly fill the Romania road map.
      */
     private void addRoad(State a, State b, int cost) {
         romaniaRoadMap.get(a).put(b, cost);
