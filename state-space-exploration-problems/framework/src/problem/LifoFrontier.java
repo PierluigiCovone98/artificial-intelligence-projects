@@ -23,7 +23,7 @@ public class LifoFrontier<S, A> implements Frontier<S, A> {
      */
     @Override
     public void add(Node<S, A> node) {
-        frontier.add(node);
+        frontier.push(node);
     }
 
     /**
@@ -31,7 +31,7 @@ public class LifoFrontier<S, A> implements Frontier<S, A> {
      */
     @Override
     public Node<S, A> remove() {
-        return frontier.remove();
+        return frontier.pop();
     }
 
     /**
