@@ -1,0 +1,82 @@
+package problem;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * An Agent instance needs to know which kind of search it has to perform.
+ * It has the capability of retrieve solution from a given node.
+ */
+public class Agent<S, A> {
+
+    private final SearchAlgorithm<S, A> searchAlgorithm;
+
+    /**
+     * Constructor.
+     */
+    public Agent(SearchAlgorithm<S, A> searchAlgorithm) {
+        this.searchAlgorithm = searchAlgorithm;
+    }
+
+    /*
+    Here it should be put the "overall method" that actually solves the problem.
+    This means that, for a given problem:
+        - It is planned a "sequence of actions" (aka: a solution)
+        - Actions are taken.
+    The method should look like:
+
+        public void solve(AbstractProblem<S,A> problem, ??? perception) {
+
+            // Find a plan and execute it
+            List<A> plan = findPlan(problem);
+
+            [...] execute_plan(plan);
+        }
+     */
+
+    /**
+     * Method to plan
+     */
+    public List<A> findPlan(AbstractProblem<S, A> problem) {
+
+        // 1. Search the objective node
+        Node<S, A> objectiveNode = searchAlgorithm.search(problem);
+
+        // Return a plan for the problem (a solution).
+        if (objectiveNode != null)
+            return getSolution(objectiveNode);
+
+        // There are no solutions for the problem.
+        return null;
+    }
+
+
+    /**
+     * Compose the solution from a given Node (the objective one).
+     */
+    private List<A> getSolution(Node<S, A> node) {
+
+        // Prepare the output.
+        ArrayList<A> solution = new ArrayList<A>();
+
+        // If the node is the "root", it does not enter the "while-loop":
+        // then, an empty list of actions is returned.
+        // This also means that an action between the parent and child must exist.
+        while (node.getParent().isPresent()) {
+
+            // Add the certainly present action.
+            solution.add(node.getAction().get());
+
+            // Update the "objectiveNode".
+            node = node.getParent().get();
+        }
+
+        // Sort actions in chronological order
+        Collections.reverse(solution);
+
+        return solution;
+    }
+
+
+}
