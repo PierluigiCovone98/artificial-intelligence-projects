@@ -55,7 +55,7 @@ public class SearchAlgorithm<S, A> {
 
                 // 1. Create the child node
                 S childState = problem.getResult(node.getState(), action);
-                double childStepCost = (double) problem.getStepCost(node.getState(), action);
+                double childStepCost = problem.getStepCost(node.getState(), action).doubleValue();
 
                 Node<S, A> childNode = Node.createChild(node, childState, action, childStepCost);
 
