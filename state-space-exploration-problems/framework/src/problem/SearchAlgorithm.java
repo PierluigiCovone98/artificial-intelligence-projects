@@ -69,11 +69,10 @@ public class SearchAlgorithm<S, A> {
                 boolean isNew = !frontier.containsState(childState) &&
                         (!useExploredSet || !explored.contains(childState));
 
+                // This is wrong: think about the example at page S.A.3.48.
+                // For a better readability, let leave the "isNew" check.
                 if (isNew) {
-                    if (problem.goalTest(childState))
-                        return childNode;
-                    else
-                        frontier.add(childNode);
+                    frontier.add(childNode);
                 }
             }
         }
