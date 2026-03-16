@@ -18,26 +18,26 @@ public class Test {
         // === Test 1 ===
         //  - Frontier Strategy     :   FIFO (BSD Search)
 
-        Frontier<State, State> fifoFrontier = new FifoFrontier<>();
-        SearchAlgorithm<State, State> fifoSearch = new SearchAlgorithm<>(fifoFrontier, true);
-        Agent<State, State> agentBFS = new Agent<>(fifoSearch);
-
-        List<State> planBFS = agentBFS.findPlan(problemAradBucharest);
-        System.out.println("[T1] FIFO Frontier:");
-        printSolution(planBFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
+//        Frontier<State, State> fifoFrontier = new FifoFrontier<>();
+//        SearchAlgorithm<State, State> fifoSearch = new SearchAlgorithm<>(fifoFrontier, true);
+//        Agent<State, State> agentBFS = new Agent<>(fifoSearch);
+//
+//        List<State> planBFS = agentBFS.findPlan(problemAradBucharest);
+//        System.out.println("[T1] FIFO Frontier:");
+//        printSolution(planBFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
 
 
 
         // === Test 2 ===
         //  - Frontier Strategy     :   LIFO (DSD Search)
 
-        Frontier<State, State> lifoFrontier = new LifoFrontier<>();
-        SearchAlgorithm<State, State> lifoSearch = new SearchAlgorithm<>(lifoFrontier, true);
-        Agent<State, State> agentDFS = new Agent<>(lifoSearch);
-
-        List<State> planDFS = agentDFS.findPlan(problemAradBucharest);
-        System.out.println("[T2] LIFO Frontier:");
-        printSolution(planDFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
+//        Frontier<State, State> lifoFrontier = new LifoFrontier<>();
+//        SearchAlgorithm<State, State> lifoSearch = new SearchAlgorithm<>(lifoFrontier, true);
+//        Agent<State, State> agentDFS = new Agent<>(lifoSearch);
+//
+//        List<State> planDFS = agentDFS.findPlan(problemAradBucharest);
+//        System.out.println("[T2] LIFO Frontier:");
+//        printSolution(planDFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
 
     }
 

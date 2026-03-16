@@ -10,12 +10,12 @@ import java.util.ArrayList;
  */
 public class Agent<S, A> {
 
-    private final SearchAlgorithm<S, A> searchAlgorithm;
+    private final AbstractSearchAlgorithm<S, A> searchAlgorithm;
 
     /**
      * Constructor.
      */
-    public Agent(SearchAlgorithm<S, A> searchAlgorithm) {
+    public Agent(AbstractSearchAlgorithm<S, A> searchAlgorithm) {
         this.searchAlgorithm = searchAlgorithm;
     }
 
