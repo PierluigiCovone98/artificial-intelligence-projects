@@ -34,11 +34,13 @@ public class BFSSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
                 (!isUseExploredSet() || !explored.contains(childState)) ) {
             if (problem.goalTest(childState))
                 return node;
-
+            else
+                // Add the child node to the frontier
+                getFrontier().add(node);
         }
 
         return null;
-
+        // TODO: Check for correctness
     }
 
 }
