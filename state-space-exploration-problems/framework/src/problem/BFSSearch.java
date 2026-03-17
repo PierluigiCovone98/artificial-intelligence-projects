@@ -2,8 +2,14 @@ package problem;
 
 import java.util.Set;
 
+/**
+ * In the BFS algorithm, we have two possible scenarios:
+ *  a. The step-cost is constants;
+ *      => The returned solution is guaranteed to be the optimal one.
+ *  b. The step-cost is not constant;
+ *      => The returned solution is NOT guaranteed be the optimal one.
+ */
 public class BFSSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
-
 
     /**
      * Constructor.
@@ -13,34 +19,16 @@ public class BFSSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
     }
 
     /**
-     * Check if the child node has a state that is the objective.
-     * This is an optimization for the BFS search algorithm,
-     * because if a child state is the objective state,
-     * the solution represents the optimal one (Not really sure).
+     * Check if the child node has a state that is the objective (optimization for the BFS search algorithm).
+     * If not, return null.
      */
     @Override
-    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> node, Set<S> explored) {
+    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> node) {
 
-        // Save the child state
-        S childState = node.getState();
-
-        // Check the following:
-        //  1. If the child node is not in "frontier" AND
-        //  2. If the "useExploredSet" is:
-        //      2.1. If "False", that's amazing.
-        //      2.2. If "True", then check if the state is not in the explored set
-        if ( !getFrontier().containsState(childState)
-                &&
-                (!isUseExploredSet() || !explored.contains(childState)) ) {
-            if (problem.goalTest(childState))
-                return node;
-            else
-                // Add the child node to the frontier
-                getFrontier().add(node);
-        }
+        if (problem.goalTest(node.getState()))
+            return node;
 
         return null;
-        // TODO: Check for correctness
     }
 
 }

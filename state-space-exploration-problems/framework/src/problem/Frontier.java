@@ -15,7 +15,6 @@ public interface Frontier<S, A> {
      */
     Node<S, A> remove();
 
-
     /**
      * Check if the underlining collection is empty.
      */

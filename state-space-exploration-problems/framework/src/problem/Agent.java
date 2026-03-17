@@ -33,10 +33,14 @@ public class Agent<S, A> {
 
             [...] execute_plan(plan);
         }
+
+
+     So, notice that (for the moment) we're just defining the method that allows
+     the agent to plan a solution.
      */
 
     /**
-     * Method to plan
+     * Method to plan a solution.
      */
     public List<A> findPlan(AbstractProblem<S, A> problem) {
 
@@ -61,8 +65,7 @@ public class Agent<S, A> {
         ArrayList<A> solution = new ArrayList<A>();
 
         // If the node is the "root", it does not enter the "while-loop":
-        // then, an empty list of actions is returned.
-        // This also means that an action between the parent and child must exist.
+        //  then, an empty list of actions is returned (the solution is: take no actions).
         while (node.getParent().isPresent()) {
 
             // Add the certainly present action.

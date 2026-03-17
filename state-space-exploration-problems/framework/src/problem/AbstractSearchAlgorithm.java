@@ -7,15 +7,18 @@ import java.util.*;
  *  1. The kind of used Frontier;
  *  2. If it has (or not) to save explored states.
  */
-public abstract class AbstractSearchAlgorithm<S, A> {
+public class AbstractSearchAlgorithm<S, A> {
 
     private final Frontier<S, A> frontier;
-    private final boolean useExploredSet;
+    private final boolean useExploredSet;       // Remember visited states?
 
     /**
      * Constructor.
+     * From the outside, I cannot create an instance of "AbstractSearchAlgorithm";
+     * for this reason, when the "search()" method is invoked, the "extension points"
+     * that are invoked are those one that are overridden in the specific subclass (if any).
      */
-    public AbstractSearchAlgorithm(Frontier<S, A> frontier, boolean useExploredSet) {
+    protected AbstractSearchAlgorithm(Frontier<S, A> frontier, boolean useExploredSet) {
         this.frontier = frontier;
         this.useExploredSet = useExploredSet;
     }
@@ -23,10 +26,8 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Search the node that contains the objective state.
      * This is an implementation of the "Template Method" pattern:
-     *  pieces of code that are common for every sub-implementation,
-     *  remains in the (main) "search" method;
-     *  those steps that are specific to a particular "search policy",
-     *  are implemented in their own subclass.
+     *  pieces of code that are common for every sub-implementation, remains in the (main) "search" method;
+     *  those steps that are specific to a particular "search policy", are implemented in their own subclass.
      */
     public Node<S, A> search(AbstractProblem<S, A> problem) {
 
@@ -70,36 +71,68 @@ public abstract class AbstractSearchAlgorithm<S, A> {
 
                 Node<S, A> childNode = Node.createChild(currentNode, childState, action, childStepCost);
 
-                // STEP 2 HERE: The actual "search policy" that differs from one algorithm to another.
-                // Optimization for algorithms like: BFS, DFS, ... .
-                // Notice that, at this point, we do not visit the child node
-                // (we do not add it to the explored set).
-                solution = handleChild(problem, childNode, explored);
-                if (solution != null) {
-                    return solution;
+                // Check the following:
+                //  1. If we use or not use the explored set, we enter the first if-statement;
+                //  2. Then, if the frontier:
+                //      2.1. do not contain a node that has the same (current) "childState",
+                //           extend if required and then, add the child node to the frontier (if not returned).
+                //      2.2. contains a node that has the same (current) "childState", it could do something...
+                if ( !useExploredSet || !explored.contains(childState) ) {
+                    if (!frontier.containsState(childState)) {
+
+                        // STEP 2: Optimization for algorithms like: [BFS, DFS, ...] .
+                        solution = handleChild(problem, childNode);
+                        if (solution != null) {
+                            return solution;
+                        }
+
+                        // Add childNode to the frontier according to the specific policy.
+                        frontier.add(childNode);
+
+                    } else {
+
+                        // STEP 3: Swap nodes in frontier if applicable[min-cost,].
+                        //         Notice that "solution" is ignored in all cases.
+                        solution = swapNodes(childNode, frontier);
+
+                    }
                 }
-            }
-        }
+            } // for
+        } // while
 
         return null;
     }
+
+
+    // === TEMPLATE METHOD Steps (methods to be implemented) ===
 
     /**
      * Extension point to check if the current extracted node contains an objective state.
      * By default, it returns null.
      */
     protected Node<S, A> onNodeExtracted(AbstractProblem<S, A> problem, Node<S, A> node) {
-        // Default behavior: return null
+        // Default behavior: return null.
         return null;
     }
 
     /**
      * Extension point that allows to manage a child node, based on the used "search policy".
      */
-    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> childNode, Set<S> explored) {
-        // Default behavior: return null
+    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> childNode) {
+        // Default behavior: return null.
         return null;
     }
+
+    /**
+     * Extension point that allows to substitute the given Node with the correct one in frontier.
+     */
+    protected Node<S, A> swapNodes(Node<S, A> node, Frontier<S, A> frontier) {
+        // Default behavior: return null.
+        return null;
+    }
+
+
+    // === AUXILIARY METHODS ===
 
     /**
      * Only subclasses can get the "Frontier" instance.
