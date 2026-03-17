@@ -1,4 +1,6 @@
-package problem;
+package statesearch.frontier;
+
+import statesearch.node.Node;
 
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -9,7 +11,7 @@ import java.util.ArrayDeque;
  */
 public class LifoFrontier<S, A> implements Frontier<S, A> {
 
-    private final Deque< Node<S, A> > frontier;
+    private final Deque<Node<S, A>> frontier;
 
     /**
      * Constructor.

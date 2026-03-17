@@ -1,4 +1,8 @@
-package problem;
+package statesearch.agent;
+
+import statesearch.node.Node;
+import statesearch.problem.AbstractProblem;
+import statesearch.search.AbstractSearchAlgorithm;
 
 import java.util.Collections;
 import java.util.List;

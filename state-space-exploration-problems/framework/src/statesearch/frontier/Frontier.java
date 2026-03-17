@@ -1,4 +1,6 @@
-package problem;
+package statesearch.frontier;
+
+import statesearch.node.Node;
 
 /**
  * Minimal (required) contract to interact with a custom frontier.

@@ -1,4 +1,4 @@
-import problem.AbstractProblem;
+import statesearch.problem.AbstractProblem;
 
 import java.util.List;
 import java.util.ArrayList;

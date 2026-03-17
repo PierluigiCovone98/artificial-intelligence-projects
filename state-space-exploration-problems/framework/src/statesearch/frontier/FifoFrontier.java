@@ -1,4 +1,6 @@
-package problem;
+package statesearch.frontier;
+
+import statesearch.node.Node;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,7 +10,7 @@ import java.util.Queue;
  */
 public class FifoFrontier<S, A> implements Frontier<S, A> {
 
-    private final Queue< Node<S, A> > frontier;
+    private final Queue<Node<S, A>> frontier;
 
     /**
      * Constructor.

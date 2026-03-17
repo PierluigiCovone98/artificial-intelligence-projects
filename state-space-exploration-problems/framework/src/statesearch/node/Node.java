@@ -1,4 +1,4 @@
-package problem;
+package statesearch.node;
 
 import java.util.Optional;
 

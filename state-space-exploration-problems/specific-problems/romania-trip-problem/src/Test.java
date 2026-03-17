@@ -1,7 +1,3 @@
-import problem.*;
-
-import java.util.List;
-
 /**
  * Test if everything works.
  */

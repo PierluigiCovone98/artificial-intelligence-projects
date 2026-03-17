@@ -1,6 +1,8 @@
-package problem;
+package statesearch.search;
 
-import java.util.Set;
+import statesearch.node.Node;
+import statesearch.frontier.Frontier;
+import statesearch.problem.AbstractProblem;
 
 /**
  * In the BFS algorithm, we have two possible scenarios:

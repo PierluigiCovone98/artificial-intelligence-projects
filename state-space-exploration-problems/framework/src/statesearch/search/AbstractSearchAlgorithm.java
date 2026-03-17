@@ -1,4 +1,8 @@
-package problem;
+package statesearch.search;
+
+import statesearch.node.Node;
+import statesearch.frontier.Frontier;
+import statesearch.problem.AbstractProblem;
 
 import java.util.*;
 
@@ -7,7 +11,7 @@ import java.util.*;
  *  1. The kind of used Frontier;
  *  2. If it has (or not) to save explored states.
  */
-public class AbstractSearchAlgorithm<S, A> {
+public abstract class AbstractSearchAlgorithm<S, A> {
 
     private final Frontier<S, A> frontier;
     private final boolean useExploredSet;       // Remember visited states?
@@ -93,7 +97,7 @@ public class AbstractSearchAlgorithm<S, A> {
 
                         // STEP 3: Swap nodes in frontier if applicable[min-cost,].
                         //         Notice that "solution" is ignored in all cases.
-                        solution = swapNodes(childNode, frontier);
+                        solution = swapNodes(childNode);
 
                     }
                 }
@@ -126,7 +130,7 @@ public class AbstractSearchAlgorithm<S, A> {
     /**
      * Extension point that allows to substitute the given Node with the correct one in frontier.
      */
-    protected Node<S, A> swapNodes(Node<S, A> node, Frontier<S, A> frontier) {
+    protected Node<S, A> swapNodes(Node<S, A> node) {
         // Default behavior: return null.
         return null;
     }

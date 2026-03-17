@@ -1,4 +1,4 @@
-package problem;
+package statesearch.problem;
 
 import java.util.List;
 
