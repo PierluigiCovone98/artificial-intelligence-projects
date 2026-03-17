@@ -1,7 +1,7 @@
 package statesearch.search;
 
 import statesearch.node.Node;
-import statesearch.frontier.Frontier;
+import statesearch.frontier.FifoFrontier;
 import statesearch.problem.AbstractProblem;
 
 /**
@@ -16,7 +16,7 @@ public class BFSSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
     /**
      * Constructor.
      */
-    public BFSSearch(Frontier<S, A> frontier, boolean useExploredSet) {
+    public BFSSearch(FifoFrontier<S, A> frontier, boolean useExploredSet) {
         super(frontier, useExploredSet);
     }
 
