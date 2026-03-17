@@ -97,7 +97,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
 
                         // STEP 3: Swap nodes in frontier if applicable[min-cost,].
                         //         Notice that "solution" is ignored in all cases.
-                        solution = swapNodes(childNode);
+                        swapNodes(childNode);
 
                     }
                 }
@@ -130,9 +130,8 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Extension point that allows to substitute the given Node with the correct one in frontier.
      */
-    protected Node<S, A> swapNodes(Node<S, A> node) {
-        // Default behavior: return null.
-        return null;
+    protected void swapNodes(Node<S, A> node) {
+        // Default behavior: do nothing.
     }
 
 

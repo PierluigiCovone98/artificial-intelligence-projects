@@ -34,7 +34,7 @@ public class MinCostSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      * Replace the node in frontier if the new one has a lower path cost.
      */
     @Override
-    protected Node<S, A> swapNodes(Node<S, A> node) {
+    protected void swapNodes(Node<S, A> node) {
 
         // 1. Save the frontier as a PriorityFrontier.
         PriorityFrontier<S, A> frontier = (PriorityFrontier<S, A>) getFrontier();
@@ -48,11 +48,7 @@ public class MinCostSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
                 && (node.getPathCost() < oldNode.getPathCost()) ) {
                 frontier.removeNode(oldNode);
                 frontier.add(node);
-
-                return oldNode;
         }
-
-        return null;
     }
 
 }
