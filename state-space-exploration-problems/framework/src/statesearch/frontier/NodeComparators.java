@@ -28,10 +28,11 @@ public class NodeComparators {
 
     /**
      * Compare nodes by heuristic "h" (ascending order).
-     * It takes in input an instance of the functional interface "Heuristic".
+     * It takes in input a specific instance of the functional interface "Heuristic" and,
+     * based on that, it compares the state of the node.
      */
-    public static <S, A> Comparator< Node<S, A> > byHeuristic(Heuristic<S> heuristic) {
-        // return Comparator.comparingDouble(heuristic.estimate());
+    public static <S, A> Comparator< Node<S, A> > byHeuristic(Heuristic<S> h) {
+        return Comparator.comparingDouble( n ->  h.estimate(n.getState()) );
     }
 
     /**
