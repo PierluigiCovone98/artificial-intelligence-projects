@@ -1,6 +1,5 @@
 package statesearch.search;
 
-import statesearch.frontier.Frontier;
 import statesearch.frontier.LifoFrontier;
 import statesearch.node.Node;
 import statesearch.problem.AbstractProblem;

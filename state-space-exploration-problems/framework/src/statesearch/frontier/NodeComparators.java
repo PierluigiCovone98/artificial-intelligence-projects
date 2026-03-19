@@ -1,6 +1,7 @@
 package statesearch.frontier;
 
 import statesearch.node.Node;
+import statesearch.search.Heuristic;
 
 import java.util.Comparator;
 
@@ -27,8 +28,11 @@ public class NodeComparators {
 
     /**
      * Compare nodes by heuristic "h" (ascending order).
+     * It takes in input an instance of the functional interface "Heuristic".
      */
-    // public static <S, A> Comparator< Node<S, A> > byHeuristic() {}
+    public static <S, A> Comparator< Node<S, A> > byHeuristic(Heuristic<S> heuristic) {
+        // return Comparator.comparingDouble(heuristic.estimate());
+    }
 
     /**
      * Compare nodes by function f (ascending order), such that:
