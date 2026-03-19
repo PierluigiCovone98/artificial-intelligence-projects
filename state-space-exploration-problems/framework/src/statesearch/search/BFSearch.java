@@ -11,17 +11,17 @@ import statesearch.problem.AbstractProblem;
  *  b. The step-cost is not constant;
  *      => The returned solution is NOT guaranteed be the optimal one.
  */
-public class BFSSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
+public class BFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
 
     /**
      * Constructor.
      */
-    public BFSSearch(FifoFrontier<S, A> frontier, boolean useExploredSet) {
+    public BFSearch(FifoFrontier<S, A> frontier, boolean useExploredSet) {
         super(frontier, useExploredSet);
     }
 
     /**
-     * Check if the child node has a state that is the objective (optimization for the BFS search algorithm).
+     * Check if the child node has a state that is the objective (optimization for the BFS algorithm).
      * If not, return null.
      */
     @Override
