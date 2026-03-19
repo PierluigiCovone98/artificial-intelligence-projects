@@ -42,6 +42,8 @@ public class NodeComparators {
      *      1) g(n) denotes the pathCost of the node "n";
      *      2) h(n) denotes the heuristic valued for the node "n";
      */
-    // public static <S, A> Comparator< Node<S, A> > byFFunction() {}
+    public static <S, A> Comparator< Node<S, A> > byFFunction(Heuristic<S> h) {
+        return Comparator.comparingDouble( n ->  n.getPathCost() + h.estimate(n.getState()) );
+    }
 
 }
