@@ -47,7 +47,7 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
     }
 
     /**
-     * Check if the frontier is empty.
+     * Check if the frontier contains a node with the given state.
      */
     @Override
     public boolean containsState(S state) {
