@@ -16,8 +16,8 @@ public class BFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
     /**
      * Constructor.
      */
-    public BFSearch(FifoFrontier<S, A> frontier, boolean useExploredSet) {
-        super(frontier, useExploredSet);
+    public BFSearch( boolean useExploredSet) {
+        super(new FifoFrontier<>(), useExploredSet);
     }
 
     /**

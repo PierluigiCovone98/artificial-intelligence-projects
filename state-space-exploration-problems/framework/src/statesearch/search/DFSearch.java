@@ -12,8 +12,8 @@ public class DFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
     /**
      * Constructor.
      */
-    public DFSearch(LifoFrontier<S, A> frontier, boolean useExploredSet) {
-        super(frontier, useExploredSet);
+    public DFSearch(boolean useExploredSet) {
+        super(new LifoFrontier<S, A>(), useExploredSet);
     }
 
     /**
