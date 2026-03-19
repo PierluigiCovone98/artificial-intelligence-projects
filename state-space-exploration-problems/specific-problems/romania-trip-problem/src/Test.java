@@ -1,40 +1,46 @@
+import statesearch.agent.Agent;
+
+import statesearch.search.*;
+
 /**
  * Test if everything works.
  */
 public class Test {
 
+
     public static void main(String[] args) {
 
         // === Romania Trip Problem ===
-        //  - Initial State         :   Arad
-        //  - Objective             :   Bucharest
+        RomaniaTripProblem problem = new RomaniaTripProblem(State.ARAD, State.BUCHAREST);
 
-        RomaniaTripProblem problemAradBucharest = new RomaniaTripProblem(State.ARAD, State.BUCHAREST);
+        // === Test 1: BFS
+        Agent<State, State> agentBFS = new Agent<>( new BFSearch<>(true) );
+        System.out.println("[T1] BFS:");
+        printSolution(agentBFS.findPlan(problem), problem.getInitialState());
 
-        // === Test 1 ===
-        //  - Frontier Strategy     :   FIFO (BSD Search)
+        // === Test 2: DFS
+        Agent<State, State> agentDFS = new Agent<>(new DFSearch<>(true));
+        System.out.println("[T2] DFS:");
+        printSolution(agentDFS.findPlan(problem), problem.getInitialState());
 
-//        Frontier<State, State> fifoFrontier = new FifoFrontier<>();
-//        SearchAlgorithm<State, State> fifoSearch = new SearchAlgorithm<>(fifoFrontier, true);
-//        Agent<State, State> agentBFS = new Agent<>(fifoSearch);
-//
-//        List<State> planBFS = agentBFS.findPlan(problemAradBucharest);
-//        System.out.println("[T1] FIFO Frontier:");
-//        printSolution(planBFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
+        // === Test 3: Min Cost
+        Agent<State, State> agentMinCost = new Agent<>(new MinCostSearch<>(true));
+        System.out.println("[T3] Min Cost:");
+        printSolution(agentMinCost.findPlan(problem), problem.getInitialState());
 
+        // === Heuristic for informed searches
+        RomaniaDistances rd = RomaniaDistances.getInstance();
+        Heuristic<State> h = state -> rd.getDistance(state, State.BUCHAREST);
 
+        // === Test 4: Best First Greedy
+        Agent<State, State> agentGreedy = new Agent<>(new BestFirstGreedySearch<>(h, true));
+        System.out.println("[T4] Best First Greedy:");
+        printSolution(agentGreedy.findPlan(problem), problem.getInitialState());
 
-        // === Test 2 ===
-        //  - Frontier Strategy     :   LIFO (DSD Search)
-
-//        Frontier<State, State> lifoFrontier = new LifoFrontier<>();
-//        SearchAlgorithm<State, State> lifoSearch = new SearchAlgorithm<>(lifoFrontier, true);
-//        Agent<State, State> agentDFS = new Agent<>(lifoSearch);
-//
-//        List<State> planDFS = agentDFS.findPlan(problemAradBucharest);
-//        System.out.println("[T2] LIFO Frontier:");
-//        printSolution(planDFS, problemAradBucharest.getInitialState());    // Initial state from the problem.
-
+        // === Test 5: A* ===
+        Agent<State, State> agentAstar = new Agent<>(new AstarSearch<>(h, true));
+        System.out.println("[T5] A*:");
+        printSolution(agentAstar.findPlan(problem), problem.getInitialState());
     }
 
     /**
