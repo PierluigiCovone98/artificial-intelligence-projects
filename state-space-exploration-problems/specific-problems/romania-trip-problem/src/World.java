@@ -86,7 +86,7 @@ public class World {
     }
 
     /**
-     * Private helper method to easly fill the Romania road map.
+     * Private helper method to easily fill the Romania road map.
      */
     private void addRoad(State a, State b, int cost) {
         romaniaRoadMap.get(a).put(b, cost);
