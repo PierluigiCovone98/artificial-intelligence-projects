@@ -18,6 +18,9 @@ public abstract class AbstractSearchAlgorithm<S, A> {
 
     // === ALGORITHM INFORMATION & STATISTICS ===
     private final String algorithmName;
+    private int iterations;                     // 0 by default
+    private int maxFrontierSize;                // 0 by default
+    private long executionTimeMS;
 
 
     /**
@@ -35,12 +38,31 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     }
 
     /**
+     * Wrap the main "search method" such that it can be computed execution time.
+     */
+    public Node<S, A> search(AbstractProblem<S, A> problem) {
+        // Reset statistics
+        resetStatistics();
+
+        // Initial time
+        long startTime = System.currentTimeMillis();
+
+        // Actual search
+        Node<S, A> searchResult = doSearch(problem);
+
+        // Compute the execution time
+        executionTimeMS = System.currentTimeMillis() - startTime;
+
+        return searchResult;
+    }
+
+    /**
      * Search the node that contains the objective state.
      * This is an implementation of the "Template Method" pattern:
      *  pieces of code that are common for every sub-implementation, remains in the (main) "search" method;
      *  those steps that are specific to a particular "search policy", are implemented in their own subclass.
      */
-    public Node<S, A> search(AbstractProblem<S, A> problem) {
+    private Node<S, A> doSearch(AbstractProblem<S, A> problem) {
 
         // Eventually prepare the explored data structure.
         Set<S> explored = null;
@@ -60,6 +82,9 @@ public abstract class AbstractSearchAlgorithm<S, A> {
 
         // Start searching...
         while (!frontier.isEmpty()) {
+
+            // UPDATE STATISTICS
+            iterations++;
 
             Node<S, A> currentNode = frontier.remove();
 
@@ -109,6 +134,12 @@ public abstract class AbstractSearchAlgorithm<S, A> {
                     }
                 }
             } // for
+
+            // Update the max frontier size
+            int currentFrontierSize = frontier.size();
+            if (maxFrontierSize - currentFrontierSize < 0)
+                maxFrontierSize = currentFrontierSize;
+
         } // while
 
         return null;
@@ -156,5 +187,41 @@ public abstract class AbstractSearchAlgorithm<S, A> {
      */
     protected boolean isUseExploredSet() {
         return useExploredSet;
+    }
+
+    /**
+     * Get the algorithm name.
+     */
+    public String getAlgorithmName() {
+        return algorithmName;
+    }
+
+    /**
+     * Get the number of iterations.
+     */
+    public int getIterations() {
+        return iterations;
+    }
+
+    /**
+     * Get max frontier size.
+     */
+    public int getMaxFrontierSize() {
+        return maxFrontierSize;
+    }
+
+    /**
+     * Get the execution time in ms.
+     */
+    public long getExecutionTimeMS() {
+        return executionTimeMS;
+    }
+
+    /**
+     * Reset statistics if the same instance of the search algorithm is invoked more than once.
+     */
+    private void resetStatistics() {
+        iterations = 0;
+        maxFrontierSize = 0;
     }
 }

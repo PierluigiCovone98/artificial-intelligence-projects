@@ -26,4 +26,11 @@ public interface Frontier<S, A> {
      * Check if the underlining collection contains a specific state.
      */
     boolean containsState(S state);
+
+    // === Methods used for statistics ===
+
+    /**
+     * Get the size of the frontier.
+     */
+    int size();
 }

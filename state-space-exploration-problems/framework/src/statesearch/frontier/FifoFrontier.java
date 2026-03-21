@@ -50,4 +50,12 @@ public class FifoFrontier<S, A> implements Frontier<S, A> {
     public boolean containsState(S state) {
         return frontier.stream().anyMatch(n -> n.getState().equals(state));
     }
+
+    /**
+     * Get the queue size.
+     */
+    @Override
+    public int size() {
+        return frontier.size();
+    }
 }

@@ -71,4 +71,12 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
     public boolean removeNode(Node<S, A> node) {
         return this.frontier.remove(node);
     }
+
+    /**
+     * Get the priority queue size.
+     */
+    @Override
+    public int size() {
+        return this.frontier.size();
+    }
 }
