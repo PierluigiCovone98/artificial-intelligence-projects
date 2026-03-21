@@ -20,7 +20,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     private final String algorithmName;
     private int iterations;                     // 0 by default
     private int maxFrontierSize;                // 0 by default
-    private long executionTimeMS;
+    private long executionTimeNS;
 
 
     /**
@@ -45,13 +45,13 @@ public abstract class AbstractSearchAlgorithm<S, A> {
         resetStatistics();
 
         // Initial time
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         // Actual search
         Node<S, A> searchResult = doSearch(problem);
 
         // Compute the execution time
-        executionTimeMS = System.currentTimeMillis() - startTime;
+        executionTimeNS = System.nanoTime() - startTime;
 
         return searchResult;
     }
@@ -213,8 +213,8 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Get the execution time in ms.
      */
-    public long getExecutionTimeMs() {
-        return executionTimeMS;
+    public long getExecutionTimeNs() {
+        return executionTimeNS;
     }
 
     /**

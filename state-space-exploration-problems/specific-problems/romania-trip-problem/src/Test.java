@@ -2,6 +2,8 @@ import statesearch.agent.Agent;
 
 import statesearch.search.*;
 
+import java.util.List;
+
 /**
  * Test if everything works.
  */
@@ -15,18 +17,18 @@ public class Test {
 
         // === Test 1: BFS
         Agent<State, State> agentBFS = new Agent<>( new BFSearch<>(true) );
-        System.out.println("[T1] BFS:");
-        printSolution(agentBFS.findPlan(problem), problem.getInitialState());
+        List<State> planBFS = agentBFS.findPlan(problem);
+        System.out.println( agentBFS.getSearchReport(planBFS, problem) );
 
         // === Test 2: DFS
         Agent<State, State> agentDFS = new Agent<>(new DFSearch<>(true));
-        System.out.println("[T2] DFS:");
-        printSolution(agentDFS.findPlan(problem), problem.getInitialState());
+        List<State> planDFS = agentDFS.findPlan(problem);
+        System.out.println( agentDFS.getSearchReport(planDFS, problem) );
 
         // === Test 3: Min Cost
         Agent<State, State> agentMinCost = new Agent<>(new MinCostSearch<>(true));
-        System.out.println("[T3] Min Cost:");
-        printSolution(agentMinCost.findPlan(problem), problem.getInitialState());
+        List<State> planMinCost = agentMinCost.findPlan(problem);
+        System.out.println( agentMinCost.getSearchReport(planMinCost, problem) );
 
         // === Heuristic for informed searches
         RomaniaDistances rd = RomaniaDistances.getInstance();
@@ -34,35 +36,13 @@ public class Test {
 
         // === Test 4: Best First Greedy
         Agent<State, State> agentGreedy = new Agent<>(new BestFirstGreedySearch<>(h, true));
-        System.out.println("[T4] Best First Greedy:");
-        printSolution(agentGreedy.findPlan(problem), problem.getInitialState());
+        List<State> planGreedy = agentGreedy.findPlan(problem);
+        System.out.println( agentGreedy.getSearchReport(planGreedy, problem) );
 
         // === Test 5: A* ===
         Agent<State, State> agentAstar = new Agent<>(new AstarSearch<>(h, true));
-        System.out.println("[T5] A*:");
-        printSolution(agentAstar.findPlan(problem), problem.getInitialState());
-    }
-
-    /**
-     * Print a possible solution (sequence of actions).
-     */
-    private static void printSolution(java.util.List<State> plan, State initialState) {
-
-        // Warn if there are no solutions.
-        if (plan == null) {
-            System.out.println("[Warn] No solution found.");
-            return;
-        }
-
-        // Otherwise: format the solution.
-        StringBuilder sb = new StringBuilder();
-        sb.append(initialState);
-
-        for (State action : plan) {
-            sb.append(" -> ").append(action);
-        }
-
-        System.out.println(sb.toString());
+        List<State> planAstar = agentAstar.findPlan(problem) ;
+        System.out.println( agentAstar.getSearchReport(planAstar, problem) );
     }
 
 }
