@@ -15,7 +15,8 @@ public class MinCostSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      */
     public MinCostSearch(boolean useExploredSet) {
         super(new PriorityFrontier<>(NodeComparators.byPathCost()),
-                useExploredSet);
+                useExploredSet,
+                "Min Cost Search");
     }
 
     /**

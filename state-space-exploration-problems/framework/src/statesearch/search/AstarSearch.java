@@ -20,7 +20,8 @@ public class AstarSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      */
     public AstarSearch(Heuristic<S> h, boolean useExploredSet) {
         super(new PriorityFrontier<>( NodeComparators.byFFunction(h) ),
-                useExploredSet);
+                useExploredSet,
+                "A*");
     }
 
     /**

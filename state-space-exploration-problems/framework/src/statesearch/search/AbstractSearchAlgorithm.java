@@ -16,15 +16,22 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     private final Frontier<S, A> frontier;
     private final boolean useExploredSet;       // Remember visited states?
 
+    // === ALGORITHM INFORMATION & STATISTICS ===
+    private final String algorithmName;
+
+
     /**
      * Constructor.
      * From the outside, I cannot create an instance of "AbstractSearchAlgorithm";
      * for this reason, when the "search()" method is invoked, the "extension points"
      * that are invoked are those one that are overridden in the specific subclass (if any).
      */
-    protected AbstractSearchAlgorithm(Frontier<S, A> frontier, boolean useExploredSet) {
+    protected AbstractSearchAlgorithm(Frontier<S, A> frontier, boolean useExploredSet, String algorithmName) {
         this.frontier = frontier;
         this.useExploredSet = useExploredSet;
+
+        // Initialize Algorithm Information & Statistics
+        this.algorithmName = algorithmName;
     }
 
     /**

@@ -17,7 +17,8 @@ public class BestFirstGreedySearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      */
     public BestFirstGreedySearch(Heuristic<S> h, boolean useExploredSet) {
         super(new PriorityFrontier<>(NodeComparators.byHeuristic(h) ),
-                useExploredSet);
+                useExploredSet,
+                "Best First Greedy Search");
     }
 
     /**
