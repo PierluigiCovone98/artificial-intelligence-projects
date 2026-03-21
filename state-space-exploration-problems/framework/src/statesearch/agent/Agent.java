@@ -85,5 +85,22 @@ public class Agent<S, A> {
         return solution;
     }
 
+    /**
+     * Build a formatted report with search statistics and solution.
+     * Must be called after findPlan().
+     */
+    public String getSearchReport(List<A> plan) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Algorithm:          ").append(searchAlgorithm.getAlgorithmName()).append("\n");
+        sb.append("Time:               ").append(searchAlgorithm.getExecutionTimeMs()).append(" ms\n");
+        sb.append("Iterations:         ").append(searchAlgorithm.getIterations()).append("\n");
+        sb.append("Max Frontier Size:  ").append(searchAlgorithm.getMaxFrontierSize()).append("\n");
+        sb.append("Actions:            ").append(plan != null ? plan : "No solution found").append("\n");
+
+        return sb.toString();
+    }
+
 
 }

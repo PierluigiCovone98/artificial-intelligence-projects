@@ -213,7 +213,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Get the execution time in ms.
      */
-    public long getExecutionTimeMS() {
+    public long getExecutionTimeMs() {
         return executionTimeMS;
     }
 
