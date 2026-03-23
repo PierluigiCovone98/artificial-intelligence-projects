@@ -34,60 +34,111 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
 
 
     /**
-     * Constructor.
+     * Public Constructor.
+     * Invokes the private constructor with the already converted array of AminoAcids.
      */
     public ProteinFoldingProblem(String protein) {
+        this( stringToAminoAcid(protein) );
+    }
 
+    /**
+     * Private constructor.
+     */
+    private ProteinFoldingProblem(AminoAcid[] proteinAminoAcids) {
         // Create the initial state
         super(
-                State.createInitialState( stringToAminoAcid(protein)[0] )
+                State.createInitialState( proteinAminoAcids[0] )
         );
 
         // Initialize the field
-        this.proteinAminoAcids =  stringToAminoAcid(protein);
+        this.proteinAminoAcids = proteinAminoAcids;
     }
 
 
     /**
-     *
+     * Return the legal directions from the "state.lastPlaced" position.
+     * A direction is "legal" if the neighboring cell is not already occupied.
      */
     @Override
     public List<Action> getActions(State state) {
 
         List<Action> actions = new ArrayList<>();
 
+        // Preventing from returning actions when the protein is fully placed.
+        if (state.getPlacedAminoAcidCount() == proteinAminoAcids.length)
+            return actions;
+
         // Save last filled Position
         Position lastPlaced = state.getLastPlaced();
 
-        // Now I check which are possible neighbors (and related actions)
-        Position above = new Position(lastPlaced.x(), lastPlaced.y()+1);
-        if (!state.isOccupied(above))
-            actions.add(Action.UP);
+        for ( Action action : Action.values() ) {
 
-        Position below = new Position(lastPlaced.x(), lastPlaced.y()-1);
-        if (!state.isOccupied(below))
-            actions.add(Action.DOWN);
+            // Save the Position were the "action" led to
+            Position neighbor = computeNextPosition(lastPlaced, action);
 
-        Position right = new Position(lastPlaced.x()+1, lastPlaced.y());
-        if (!state.isOccupied(right))
-            actions.add(Action.RIGHT);
+            // If not already placed, add the action
+            if (!state.isOccupied(neighbor))
+                actions.add(action);
 
-        Position left = new Position(lastPlaced.x()-1, lastPlaced.y());
-        if (!state.isOccupied(left))
-            actions.add(Action.LEFT);
+        }
 
         return actions;
     }
 
-    // TODO: implements these methods
+    /**
+     * Place the next amino acid in the sequence at the cell reached by the given action.
+     */
     @Override
     public State getResult(State state, Action action) {
-        return null;
+
+        // Save required information that I "cannot directly access".
+        Position nextPosition = computeNextPosition(state.getLastPlaced(), action);
+
+        // Notice: If I've placed n amino acids, the next one is exactly the n-th from the array.
+        AminoAcid nextAminoacid =  getAminoAcidAt( state.getPlacedAminoAcidCount() );
+
+        return State.createChildState(state, nextPosition, nextAminoacid);
     }
 
+
+    /**
+     * Know the "step cost" of going from the State "state" to the "next one" by performing Action "action".
+     */
     @Override
     public Number getStepCost(State state, Action action) {
-        return null;
+
+        Position lastPlaced = state.getLastPlaced();
+
+        // 1. We need to know which is the "next" Position.
+        Position nextPosition = computeNextPosition(lastPlaced, action);
+
+        // 2. We also need to know which is the next amino acid to place
+        AminoAcid nextAminoAcid = getAminoAcidAt( state.getPlacedAminoAcidCount() );
+
+
+        // Define the cost as a "counter"
+        int cost = 0;
+
+        // 3. If the nextAminoAcid is "P" then all costs are the same
+        if (nextAminoAcid.equals(AminoAcid.P))
+            return cost;
+
+        // 4. Let's consider all neighbors from "nextPosition"; we are considering: nextAminoAcid = "H".
+        for (Action a : Action.values()) {
+
+            Position nextPositionNeighbor = computeNextPosition(nextPosition, a);
+
+            // Excluding the case of direct contact.
+            if ( nextPositionNeighbor.equals(lastPlaced) )
+                continue;
+
+            // Increment the cost when the neighbor is empty or if a "P" amino acid is placed
+            if ( !state.isOccupied(nextPositionNeighbor) || state.getAt(nextPositionNeighbor).equals(AminoAcid.P) )
+                cost++;
+
+        }
+
+        return cost;
     }
 
     /**
@@ -109,6 +160,17 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
         if (n < 0 || n >= proteinAminoAcids.length)
             return null;
         return proteinAminoAcids[n];
+    }
+
+
+    // === Utility methods ===
+
+    /**
+     * Compute the "next position" from the "startingPosition".
+     */
+    private Position computeNextPosition(Position startingPosition, Action action) {
+        return new Position( startingPosition.x() + action.getDx(),
+                startingPosition.y() + action.getDy() );
     }
 
 }
