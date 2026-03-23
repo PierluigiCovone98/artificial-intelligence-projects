@@ -7,14 +7,13 @@ import java.util.Objects;
 /**
  * A State in the "Protein Folding" problem (modeled to be solved with space state search algorithms)
  * is simply defined by:
- *  - A list of those coordinates of the 2D grid that have an amino acid placed on it;
- *  - The position for the last plaed amino acid.
+ *  - A collection of coordinates of the 2D grid that have an amino acid placed on it;
+     *  - The position for the last placed amino acid.
  */
 public class State {
 
     private final Map<Position, AminoAcid> grid;
     private final Position lastPlaced;
-
 
     /**
      * Private Constructor (Remember:states are "labels").
@@ -46,14 +45,13 @@ public class State {
         // Notice: For different instances of the same class it is possible to
         //         access members declared "private" (they know the implementation)
         //         because of the same class.
-        Map<Position, AminoAcid> grid = new HashMap<>(parent.grid);
+        Map<Position, AminoAcid> childGrid = new HashMap<>(parent.grid);
 
         // Extend the grid by adding the new amino acid
-        grid.put(position, aminoAcid);
+        childGrid.put(position, aminoAcid);
 
-        return new State(grid, position);
+        return new State(childGrid, position);
     }
-
 
 
     // === Public Interface ===
