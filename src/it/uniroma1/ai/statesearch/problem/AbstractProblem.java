@@ -9,15 +9,13 @@ public abstract class AbstractProblem<S, A> {
 
     // Common fields
     private final S initialState;
-    private final S objective;
 
     /**
      * Constructor.
      * Initialize fields.
      */
-    protected AbstractProblem(S initialState, S objective) {
+    protected AbstractProblem(S initialState) {
         this.initialState = initialState;
-        this.objective = objective;
     }
 
     /**
@@ -45,8 +43,6 @@ public abstract class AbstractProblem<S, A> {
     /**
      * Determine if the given state (of type S) satisfies the objective.
      */
-    public boolean goalTest(S state) {
-        return state.equals(this.objective);
-    }
+    public abstract boolean goalTest(S state);
 
 }

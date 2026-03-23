@@ -9,14 +9,15 @@ import java.util.ArrayList;
  * Formulate the "Romania Trip" problem.
  * Here, Actions correspond to a State:
  *      Action -> "From the current State go to another State."
+ * Notice that the objective is "built-in" the class.
  */
-public class RomaniaTripProblem extends AbstractProblem<State, State> {
+public class RomaniaTripToBucharestProblem extends AbstractProblem<State, State> {
 
     /**
      * Constructor.
      */
-    public RomaniaTripProblem(State initialState, State objective) {
-        super(initialState, objective);
+    public RomaniaTripToBucharestProblem(State initialState) {
+        super(initialState);
     }
 
     /**
@@ -42,6 +43,14 @@ public class RomaniaTripProblem extends AbstractProblem<State, State> {
     @Override
     public Integer getStepCost(State s, State a) {
         return getWorld().getDistanceBetweenCities(s, a);
+    }
+
+    /**
+     * Goal test: check if the state is Bucharest.
+     */
+    @Override
+    public boolean goalTest(State s) {
+        return s.equals(State.BUCHAREST);
     }
 
     // === Utility methods ===
