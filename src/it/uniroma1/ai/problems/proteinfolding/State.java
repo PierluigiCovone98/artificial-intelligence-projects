@@ -105,4 +105,22 @@ public class State {
         return Objects.hash(grid, lastPlaced);
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        // Do not append the escape character when consider the last entry.
+        int i = 0;
+
+        // Iterate over elements in the grid.
+        for (Map.Entry<Position, AminoAcid> entry : grid.entrySet() ) {
+            sb.append(entry.getValue()).append(" @ ").append(entry.getKey());
+            if (++i < grid.size())
+                sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
 }
