@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Test if everything works.
  */
-public class Test {
+public class TestRomaniaTripToBucharestProblem {
 
 
     public static void main(String[] args) {

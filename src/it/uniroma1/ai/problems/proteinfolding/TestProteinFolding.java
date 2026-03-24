@@ -36,5 +36,6 @@ public class TestProteinFolding {
         Agent<State, Action> agentMinCost = new Agent<>(new MinCostSearch<>(true));
         List<Action> planMinCost = agentMinCost.findPlan(problem);
         System.out.println(agentMinCost.getSearchReport(planMinCost, problem));
+
     }
 }
