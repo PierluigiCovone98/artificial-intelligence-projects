@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * HP 2D Protein Folding modeled as a state-space search problem.
+ * Given a sequence of amino acids (H/P), finds a conformation on a 2D grid
+ * that minimizes energy (maximizes H-H contacts) using a complementary cost scheme (3 - c).
  */
 public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
 
     // World Knowledge
     private final AminoAcid[] proteinAminoAcids;
-
 
     /**
      * Private factory method to convert a String
@@ -31,7 +32,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
 
         return result;
     }
-
 
     /**
      * Public Constructor.
@@ -53,7 +53,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
         // Initialize the field
         this.proteinAminoAcids = proteinAminoAcids;
     }
-
 
     /**
      * Return the legal directions from the "state.lastPlaced" position.
@@ -79,7 +78,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
             // If not already placed, add the action
             if (!state.isOccupied(neighbor))
                 actions.add(action);
-
         }
 
         return actions;
@@ -99,7 +97,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
 
         return State.createChildState(state, nextPosition, nextAminoacid);
     }
-
 
     /**
      * Know the "step cost" of going from the State "state" to the "next one" by performing Action "action".
@@ -135,7 +132,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
             // Increment the cost when the neighbor is empty or if a "P" amino acid is placed
             if ( !state.isOccupied(nextPositionNeighbor) || state.getAt(nextPositionNeighbor).equals(AminoAcid.P) )
                 cost++;
-
         }
 
         return cost;
@@ -162,7 +158,6 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
         return proteinAminoAcids[n];
     }
 
-
     // === Utility methods ===
 
     /**
@@ -172,5 +167,4 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
         return new Position( startingPosition.x() + action.getDx(),
                 startingPosition.y() + action.getDy() );
     }
-
 }
