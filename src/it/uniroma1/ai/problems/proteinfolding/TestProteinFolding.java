@@ -41,6 +41,9 @@ public class TestProteinFolding {
         List<Action> planMinCost = agentMinCost.findPlan(problem);
         System.out.println( agentMinCost.getSearchReport(planMinCost, problem) + printFoldingResult(problem, planMinCost) );
 
+        // === Heuristic ===
+        Heuristic<State> h = state -> {};
+
     }
 
     /**

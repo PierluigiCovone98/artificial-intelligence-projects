@@ -1,5 +1,7 @@
 package it.uniroma1.ai.problems.romaniatrip;
 
+import it.uniroma1.ai.statesearch.search.Heuristic;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,12 +45,11 @@ public class RomaniaDistances {
     }
 
     /**
-     * Get straight-line distance from a city to a target city.
+     * Create the heuristic that returns the distance to Bucharest, from a certain state.
      */
-    public double getDistance(State from, State to) {
-        return distances.get(to).get(from);
+    public Heuristic<State> buildHeuristic() {
+        return state -> distances.get(State.BUCHAREST).get(state);
     }
-
 
     // === UTILITY METHODS ===
 

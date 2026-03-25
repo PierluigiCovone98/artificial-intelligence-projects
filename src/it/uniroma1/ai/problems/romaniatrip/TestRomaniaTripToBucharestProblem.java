@@ -34,7 +34,7 @@ public class TestRomaniaTripToBucharestProblem {
 
         // === Heuristic for informed searches
         RomaniaDistances rd = RomaniaDistances.getInstance();
-        Heuristic<State> h = state -> rd.getDistance(state, State.BUCHAREST);
+        Heuristic<State> h = rd.buildHeuristic();
 
         // === Test 4: Best First Greedy
         Agent<State, State> agentGreedy = new Agent<>(new BestFirstGreedySearch<>(h, true));
