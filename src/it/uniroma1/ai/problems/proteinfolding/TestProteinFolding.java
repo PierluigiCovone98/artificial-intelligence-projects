@@ -42,7 +42,6 @@ public class TestProteinFolding {
         System.out.println( agentMinCost.getSearchReport(planMinCost, problem) + printFoldingResult(problem, planMinCost) );
 
         // === Heuristic ===
-        // TODO: CHECK IT
         Heuristic<State> h = problem.buildHeuristic();
 
         // === Test 4: Best First Greedy ===
