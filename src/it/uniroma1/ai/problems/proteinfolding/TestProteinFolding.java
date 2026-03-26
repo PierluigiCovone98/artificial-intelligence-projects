@@ -42,8 +42,18 @@ public class TestProteinFolding {
         System.out.println( agentMinCost.getSearchReport(planMinCost, problem) + printFoldingResult(problem, planMinCost) );
 
         // === Heuristic ===
-        Heuristic<State> h = state -> {};
+        // TODO: CHECK IT
+        Heuristic<State> h = problem.buildHeuristic();
 
+        // === Test 4: Best First Greedy ===
+        Agent<State, Action> agentGreedy = new Agent<>(new BestFirstGreedySearch<>(h, true));
+        List<Action> planGreedy = agentGreedy.findPlan(problem);
+        System.out.println( agentGreedy.getSearchReport(planGreedy, problem) + printFoldingResult(problem, planGreedy) );
+
+        // === Test 5: A* ===
+        Agent<State, Action> agentAstar = new Agent<>(new AstarSearch<>(h, true));
+        List<Action> planAstar = agentAstar.findPlan(problem);
+        System.out.println( agentAstar.getSearchReport(planAstar, problem) + printFoldingResult(problem, planAstar) );
     }
 
     /**

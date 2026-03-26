@@ -1,6 +1,7 @@
 package it.uniroma1.ai.problems.proteinfolding;
 
 import it.uniroma1.ai.statesearch.problem.AbstractProblem;
+import it.uniroma1.ai.statesearch.search.Heuristic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,5 +167,41 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
     private Position computeNextPosition(Position startingPosition, Action action) {
         return new Position( startingPosition.x() + action.getDx(),
                 startingPosition.y() + action.getDy() );
+    }
+
+
+    // === HEURISTIC METHODS ===
+
+    /**
+     * TODO: It coul be pre-computed and access in an efficient way.
+     * Estimates remaining cost based on the number of "H" amino acids still to be placed.
+     */
+    public Heuristic<State> buildHeuristic() {
+
+        int proteinLength = proteinAminoAcids.length;
+
+        // It changes the future cost estimation.
+        boolean lastIsH = proteinAminoAcids[proteinLength - 1] == AminoAcid.H;
+
+
+        return state -> {
+
+            // Save placed amino acids
+            int placedCount = state.getPlacedAminoAcidCount();
+
+            // Count H in the remaining (not yet placed) portion of the sequence
+            int remainingH = 0;
+            for (int i = placedCount; i < proteinLength; i++) {
+                if (proteinAminoAcids[i] == AminoAcid.H)
+                    remainingH++;
+            }
+
+            // The check on the "placed amino acids" avoid the case where,
+            // when the last amino acid is H and all amino acids have been
+            // placed, the heuristic returns "0-1".
+            return (lastIsH && placedCount < proteinLength)
+                    ? remainingH - 1
+                    : remainingH;
+        };
     }
 }
