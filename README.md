@@ -1,6 +1,6 @@
 # Artificial Intelligence
 
-Projects for the Artificial Intelligence course (A.Y. 2024/2025).
+Projects for the Artificial Intelligence course (A.Y. 2025/2026).
 
 ---
 
