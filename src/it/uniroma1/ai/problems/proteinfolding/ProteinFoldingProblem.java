@@ -173,7 +173,7 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
     // === HEURISTIC METHODS ===
 
     /**
-     * TODO: It coul be pre-computed and access in an efficient way.
+     * TODO: It could be pre-computed and access in an efficient way.
      * Estimates remaining cost based on the number of "H" amino acids still to be placed.
      */
     public Heuristic<State> buildHeuristic() {
