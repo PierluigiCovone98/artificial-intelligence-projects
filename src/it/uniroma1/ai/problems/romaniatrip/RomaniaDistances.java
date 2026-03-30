@@ -1,6 +1,6 @@
 package it.uniroma1.ai.problems.romaniatrip;
 
-import it.uniroma1.ai.statesearch.search.Heuristic;
+import it.uniroma1.ai.statesearch.algorithm.Heuristic;
 
 import java.util.HashMap;
 import java.util.Map;

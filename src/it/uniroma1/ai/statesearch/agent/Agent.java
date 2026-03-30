@@ -2,7 +2,7 @@ package it.uniroma1.ai.statesearch.agent;
 
 import it.uniroma1.ai.statesearch.node.Node;
 import it.uniroma1.ai.statesearch.problem.AbstractProblem;
-import it.uniroma1.ai.statesearch.search.AbstractSearchAlgorithm;
+import it.uniroma1.ai.statesearch.algorithm.AbstractSearchAlgorithm;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,4 +1,4 @@
-package it.uniroma1.ai.statesearch.search;
+package it.uniroma1.ai.statesearch.algorithm;
 
 import it.uniroma1.ai.statesearch.frontier.LifoFrontier;
 import it.uniroma1.ai.statesearch.node.Node;

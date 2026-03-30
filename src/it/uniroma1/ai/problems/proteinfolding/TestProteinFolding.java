@@ -1,7 +1,7 @@
 package it.uniroma1.ai.problems.proteinfolding;
 
 import it.uniroma1.ai.statesearch.agent.Agent;
-import it.uniroma1.ai.statesearch.search.*;
+import it.uniroma1.ai.statesearch.algorithm.*;
 
 import java.util.ArrayList;
 import java.util.List;
