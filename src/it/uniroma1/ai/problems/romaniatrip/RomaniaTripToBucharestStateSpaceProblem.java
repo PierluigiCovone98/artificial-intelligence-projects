@@ -1,6 +1,6 @@
 package it.uniroma1.ai.problems.romaniatrip;
 
-import it.uniroma1.ai.search.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *      Action -> "From the current State go to another State."
  * Notice that the objective is "built-in" the class.
  */
-public class RomaniaTripToBucharestProblem extends AbstractProblem<State, State> {
+public class RomaniaTripToBucharestStateSpaceProblem extends AbstractStateSpaceProblem<State, State> {
 
     /**
      * Constructor.
      */
-    public RomaniaTripToBucharestProblem(State initialState) {
+    public RomaniaTripToBucharestStateSpaceProblem(State initialState) {
         super(initialState);
     }
 

@@ -1,8 +1,9 @@
 package it.uniroma1.ai.search.algorithm.statespace;
 
+import it.uniroma1.ai.search.algorithm.SearchAlgorithm;
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.frontier.Frontier;
-import it.uniroma1.ai.search.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 import java.util.*;
 
@@ -11,7 +12,8 @@ import java.util.*;
  *  1. The kind of used Frontier;
  *  2. If it has (or not) to save explored states.
  */
-public abstract class AbstractSearchAlgorithm<S, A> {
+public abstract class AbstractStateSpaceSearch<S, A>
+        implements SearchAlgorithm< AbstractStateSpaceProblem<S, A>, Node<S, A> > {
 
     private final Frontier<S, A> frontier;
     private final boolean useExploredSet;       // Remember visited states?
@@ -29,7 +31,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
      * for this reason, when the "search()" method is invoked, the "extension points"
      * that are invoked are those one that are overridden in the specific subclass (if any).
      */
-    protected AbstractSearchAlgorithm(Frontier<S, A> frontier, boolean useExploredSet, String algorithmName) {
+    protected AbstractStateSpaceSearch(Frontier<S, A> frontier, boolean useExploredSet, String algorithmName) {
         this.frontier = frontier;
         this.useExploredSet = useExploredSet;
 
@@ -40,7 +42,8 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Wrap the main "search method" such that it can be computed execution time.
      */
-    public Node<S, A> search(AbstractProblem<S, A> problem) {
+    @Override
+    public Node<S, A> search(AbstractStateSpaceProblem<S, A> problem) {
         // Reset statistics
         resetStatistics();
 
@@ -62,7 +65,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
      *  pieces of code that are common for every sub-implementation, remains in the (main) "search" method;
      *  those steps that are specific to a particular "search policy", are implemented in their own subclass.
      */
-    private Node<S, A> doSearch(AbstractProblem<S, A> problem) {
+    private Node<S, A> doSearch(AbstractStateSpaceProblem<S, A> problem) {
 
         // Eventually prepare the explored data structure.
         Set<S> explored = null;
@@ -152,7 +155,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
      * Extension point to check if the current extracted node contains an objective state.
      * By default, it returns null.
      */
-    protected Node<S, A> onNodeExtracted(AbstractProblem<S, A> problem, Node<S, A> node) {
+    protected Node<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
         // Default behavior: return null.
         return null;
     }
@@ -160,7 +163,7 @@ public abstract class AbstractSearchAlgorithm<S, A> {
     /**
      * Extension point that allows to manage a child node, based on the used "search policy".
      */
-    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> childNode) {
+    protected Node<S, A> handleChild(AbstractStateSpaceProblem<S, A> problem, Node<S, A> childNode) {
         // Default behavior: return null.
         return null;
     }

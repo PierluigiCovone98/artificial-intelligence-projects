@@ -4,6 +4,7 @@ import it.uniroma1.ai.search.frontier.NodeComparators;
 import it.uniroma1.ai.search.frontier.PriorityFrontier;
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 /**
  * A* search algorithm implementation.
@@ -13,7 +14,7 @@ import it.uniroma1.ai.search.problem.AbstractProblem;
  *                      f(n) = g(n) + h(n)
  * is the "g" cost.
  */
-public class AstarSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
+public class AstarSearch<S, A> extends AbstractStateSpaceSearch<S, A> {
 
     /**
      * Constructor.
@@ -28,7 +29,7 @@ public class AstarSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      * Goal test at extraction.
      */
     @Override
-    protected Node<S, A> onNodeExtracted(AbstractProblem<S, A> problem, Node<S, A> node) {
+    protected Node<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
 
         // Check if the node contains an objective State
         if ( problem.goalTest(node.getState()) )

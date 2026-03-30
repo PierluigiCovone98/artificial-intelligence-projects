@@ -23,7 +23,7 @@ public class TestProteinFolding {
         System.out.println("[Info] Inserted protein: " + protein + "\n");
 
         // Define the problem
-        ProteinFoldingProblem problem = new ProteinFoldingProblem(protein);
+        ProteinFoldingStateSpaceProblem problem = new ProteinFoldingStateSpaceProblem(protein);
 
         // === Test 1: BFS ===
         Agent<State, Action> agentBFS = new Agent<>(new BFSearch<>(true));
@@ -59,7 +59,7 @@ public class TestProteinFolding {
     /**
      * Build a FoldingResult and print grid, contacts, and energy.
      */
-    private static String printFoldingResult(ProteinFoldingProblem problem, List<Action> plan) {
+    private static String printFoldingResult(ProteinFoldingStateSpaceProblem problem, List<Action> plan) {
 
         // Security check
         if (plan == null)
@@ -91,7 +91,7 @@ public class TestProteinFolding {
         /**
          * Constructor: replays the plan.
          */
-        FoldingResult(ProteinFoldingProblem problem, List<Action> plan) {
+        FoldingResult(ProteinFoldingStateSpaceProblem problem, List<Action> plan) {
 
             // Starts from the initial state
             State state = problem.getInitialState();

@@ -1,7 +1,7 @@
 package it.uniroma1.ai.problems.proteinfolding;
 
-import it.uniroma1.ai.search.problem.AbstractProblem;
 import it.uniroma1.ai.search.algorithm.statespace.Heuristic;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Given a sequence of amino acids (H/P), finds a conformation on a 2D grid
  * that minimizes energy (maximizes H-H contacts) using a complementary cost scheme (3 - c).
  */
-public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
+public class ProteinFoldingStateSpaceProblem extends AbstractStateSpaceProblem<State, Action> {
 
     // World Knowledge
     private final AminoAcid[] proteinAminoAcids;
@@ -38,14 +38,14 @@ public class ProteinFoldingProblem extends AbstractProblem<State, Action> {
      * Public Constructor.
      * Invokes the private constructor with the already converted array of AminoAcids.
      */
-    public ProteinFoldingProblem(String protein) {
+    public ProteinFoldingStateSpaceProblem(String protein) {
         this( stringToAminoAcid(protein) );
     }
 
     /**
      * Private constructor.
      */
-    private ProteinFoldingProblem(AminoAcid[] proteinAminoAcids) {
+    private ProteinFoldingStateSpaceProblem(AminoAcid[] proteinAminoAcids) {
         // Create the initial state
         super(
                 State.createInitialState( proteinAminoAcids[0] )

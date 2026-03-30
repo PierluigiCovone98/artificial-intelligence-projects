@@ -2,7 +2,7 @@ package it.uniroma1.ai.search.algorithm.statespace;
 
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.frontier.FifoFrontier;
-import it.uniroma1.ai.search.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 /**
  * In the BFS algorithm, we have two possible scenarios:
@@ -11,7 +11,7 @@ import it.uniroma1.ai.search.problem.AbstractProblem;
  *  b. The step-cost is not constant;
  *      => The returned solution is NOT guaranteed be the optimal one.
  */
-public class BFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
+public class BFSearch<S, A> extends AbstractStateSpaceSearch<S, A> {
 
     /**
      * Constructor.
@@ -25,7 +25,7 @@ public class BFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      * If not, return null.
      */
     @Override
-    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> node) {
+    protected Node<S, A> handleChild(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
 
         if (problem.goalTest(node.getState()))
             return node;

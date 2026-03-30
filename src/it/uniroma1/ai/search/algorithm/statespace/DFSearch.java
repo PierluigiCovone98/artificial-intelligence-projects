@@ -2,12 +2,12 @@ package it.uniroma1.ai.search.algorithm.statespace;
 
 import it.uniroma1.ai.search.frontier.LifoFrontier;
 import it.uniroma1.ai.search.node.Node;
-import it.uniroma1.ai.search.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 /**
  * Depth First Search algorithm implementation.
  */
-public class DFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
+public class DFSearch<S, A> extends AbstractStateSpaceSearch<S, A> {
 
     /**
      * Constructor.
@@ -21,7 +21,7 @@ public class DFSearch<S, A> extends AbstractSearchAlgorithm<S, A> {
      * If not, return null.
      */
     @Override
-    protected Node<S, A> handleChild(AbstractProblem<S, A> problem, Node<S, A> node) {
+    protected Node<S, A> handleChild(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
 
         if (problem.goalTest(node.getState()))
             return node;

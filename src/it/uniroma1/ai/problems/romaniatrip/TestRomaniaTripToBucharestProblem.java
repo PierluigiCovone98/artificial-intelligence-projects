@@ -15,7 +15,7 @@ public class TestRomaniaTripToBucharestProblem {
     public static void main(String[] args) {
 
         // === Romania Trip Problem ===
-        RomaniaTripToBucharestProblem problem = new RomaniaTripToBucharestProblem(State.ARAD);
+        RomaniaTripToBucharestStateSpaceProblem problem = new RomaniaTripToBucharestStateSpaceProblem(State.ARAD);
 
         // === Test 1: BFS
         Agent<State, State> agentBFS = new Agent<>( new BFSearch<>(true) );

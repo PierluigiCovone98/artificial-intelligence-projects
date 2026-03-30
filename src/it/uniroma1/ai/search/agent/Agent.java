@@ -2,7 +2,7 @@ package it.uniroma1.ai.search.agent;
 
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.problem.AbstractProblem;
-import it.uniroma1.ai.search.algorithm.statespace.AbstractSearchAlgorithm;
+import it.uniroma1.ai.search.algorithm.statespace.AbstractStateSpaceSearch;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,12 +14,13 @@ import java.util.ArrayList;
  */
 public class Agent<S, A> {
 
-    private final AbstractSearchAlgorithm<S, A> searchAlgorithm;
+    // TODO: IT HERE SHOULD HAVE THE INSTANCE OF THE INTERFACE THAT IMPLEMENTS THE search() algorithm.
+    private final AbstractStateSpaceSearch<S, A> searchAlgorithm;
 
     /**
      * Constructor.
      */
-    public Agent(AbstractSearchAlgorithm<S, A> searchAlgorithm) {
+    public Agent(AbstractStateSpaceSearch<S, A> searchAlgorithm) {
         this.searchAlgorithm = searchAlgorithm;
     }
 

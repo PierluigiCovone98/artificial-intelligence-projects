@@ -3,7 +3,7 @@ package it.uniroma1.ai.search.problem;
 import java.util.List;
 
 /**
- * Formulation of a generic "Space of State Exploration" problem.
+ * Formulation of a generic search problem.
  */
 public abstract class AbstractProblem<S, A> {
 
@@ -29,20 +29,10 @@ public abstract class AbstractProblem<S, A> {
     public abstract S getResult(S state, A action);
 
     /**
-     * Get the step cost for a given state (of type S) and the performed action (of type A).
-     */
-    public abstract Number getStepCost(S state, A action);
-
-    /**
      * Get initial state (of type S).
      */
     public S getInitialState() {
         return initialState;
     }
-
-    /**
-     * Determine if the given state (of type S) satisfies the objective.
-     */
-    public abstract boolean goalTest(S state);
 
 }
