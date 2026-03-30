@@ -1,9 +1,9 @@
-package it.uniroma1.ai.statesearch.algorithm;
+package it.uniroma1.ai.search.algorithm;
 
-import it.uniroma1.ai.statesearch.frontier.NodeComparators;
-import it.uniroma1.ai.statesearch.frontier.PriorityFrontier;
-import it.uniroma1.ai.statesearch.node.Node;
-import it.uniroma1.ai.statesearch.problem.AbstractProblem;
+import it.uniroma1.ai.search.frontier.NodeComparators;
+import it.uniroma1.ai.search.frontier.PriorityFrontier;
+import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.problem.AbstractProblem;
 
 /**
  * Best First Greedy search algorithm implementation.

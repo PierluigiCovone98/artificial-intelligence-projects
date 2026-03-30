@@ -1,4 +1,4 @@
-package it.uniroma1.ai.statesearch.problem;
+package it.uniroma1.ai.search.problem;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package it.uniroma1.ai.problems.romaniatrip;
 
-import it.uniroma1.ai.statesearch.agent.Agent;
+import it.uniroma1.ai.search.agent.Agent;
 
-import it.uniroma1.ai.statesearch.algorithm.*;
+import it.uniroma1.ai.search.algorithm.*;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package it.uniroma1.ai.statesearch.frontier;
+package it.uniroma1.ai.search.frontier;
 
-import it.uniroma1.ai.statesearch.node.Node;
+import it.uniroma1.ai.search.node.Node;
 
 import java.util.Deque;
 import java.util.ArrayDeque;

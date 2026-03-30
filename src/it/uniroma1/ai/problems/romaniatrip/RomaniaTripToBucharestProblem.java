@@ -1,6 +1,6 @@
 package it.uniroma1.ai.problems.romaniatrip;
 
-import it.uniroma1.ai.statesearch.problem.AbstractProblem;
+import it.uniroma1.ai.search.problem.AbstractProblem;
 
 import java.util.List;
 import java.util.ArrayList;

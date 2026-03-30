@@ -1,8 +1,8 @@
-package it.uniroma1.ai.statesearch.algorithm;
+package it.uniroma1.ai.search.algorithm;
 
-import it.uniroma1.ai.statesearch.node.Node;
-import it.uniroma1.ai.statesearch.frontier.Frontier;
-import it.uniroma1.ai.statesearch.problem.AbstractProblem;
+import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.frontier.Frontier;
+import it.uniroma1.ai.search.problem.AbstractProblem;
 
 import java.util.*;
 

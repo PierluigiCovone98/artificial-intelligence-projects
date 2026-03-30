@@ -1,4 +1,4 @@
-package it.uniroma1.ai.statesearch.node;
+package it.uniroma1.ai.search.node;
 
 import java.util.Optional;
 

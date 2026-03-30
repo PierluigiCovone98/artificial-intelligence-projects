@@ -1,4 +1,4 @@
-package it.uniroma1.ai.statesearch.algorithm;
+package it.uniroma1.ai.search.algorithm;
 
 /**
  * The heuristic is a simple function that return a cost for a given state.
