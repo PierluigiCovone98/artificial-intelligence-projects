@@ -1,4 +1,4 @@
-package it.uniroma1.ai.search.algorithm;
+package it.uniroma1.ai.search.algorithm.statespace;
 
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.frontier.FifoFrontier;

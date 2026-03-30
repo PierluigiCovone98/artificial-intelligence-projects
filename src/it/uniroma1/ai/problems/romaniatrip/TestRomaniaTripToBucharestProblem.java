@@ -2,7 +2,7 @@ package it.uniroma1.ai.problems.romaniatrip;
 
 import it.uniroma1.ai.search.agent.Agent;
 
-import it.uniroma1.ai.search.algorithm.*;
+import it.uniroma1.ai.search.algorithm.statespace.*;
 
 import java.util.List;
 

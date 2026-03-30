@@ -1,7 +1,7 @@
 package it.uniroma1.ai.search.frontier;
 
 import it.uniroma1.ai.search.node.Node;
-import it.uniroma1.ai.search.algorithm.Heuristic;
+import it.uniroma1.ai.search.algorithm.statespace.Heuristic;
 
 import java.util.Comparator;
 

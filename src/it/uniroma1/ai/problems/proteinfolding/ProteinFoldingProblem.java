@@ -1,7 +1,7 @@
 package it.uniroma1.ai.problems.proteinfolding;
 
 import it.uniroma1.ai.search.problem.AbstractProblem;
-import it.uniroma1.ai.search.algorithm.Heuristic;
+import it.uniroma1.ai.search.algorithm.statespace.Heuristic;
 
 import java.util.ArrayList;
 import java.util.List;
