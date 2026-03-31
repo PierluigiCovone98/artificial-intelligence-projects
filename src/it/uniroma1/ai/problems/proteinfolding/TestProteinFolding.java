@@ -1,6 +1,6 @@
 package it.uniroma1.ai.problems.proteinfolding;
 
-import it.uniroma1.ai.search.agent.Agent;
+import it.uniroma1.ai.search.agent.StateSpaceAgent;
 import it.uniroma1.ai.search.algorithm.statespace.*;
 
 import java.util.ArrayList;
@@ -26,18 +26,18 @@ public class TestProteinFolding {
         ProteinFoldingStateSpaceProblem problem = new ProteinFoldingStateSpaceProblem(protein);
 
         // === Test 1: BFS ===
-        Agent<State, Action> agentBFS = new Agent<>(new BFSearch<>(true));
+        StateSpaceAgent<State, Action> agentBFS = new StateSpaceAgent<>(new BFSearch<>(true));
         List<Action> planBFS = agentBFS.findPlan(problem);
         System.out.println( agentBFS.getSearchReport(planBFS, problem) + printFoldingResult(problem, planBFS) );
 
         // === Test 2: DFS ===
-        Agent<State, Action> agentDFS = new Agent<>(new DFSearch<>(true));
+        StateSpaceAgent<State, Action> agentDFS = new StateSpaceAgent<>(new DFSearch<>(true));
         List<Action> planDFS = agentDFS.findPlan(problem);
         System.out.println( agentDFS.getSearchReport(planDFS, problem) + printFoldingResult(problem, planDFS) );
 
 
         // === Test 3: Min Cost ===
-        Agent<State, Action> agentMinCost = new Agent<>(new MinCostSearch<>(true));
+        StateSpaceAgent<State, Action> agentMinCost = new StateSpaceAgent<>(new MinCostSearch<>(true));
         List<Action> planMinCost = agentMinCost.findPlan(problem);
         System.out.println( agentMinCost.getSearchReport(planMinCost, problem) + printFoldingResult(problem, planMinCost) );
 
@@ -46,12 +46,12 @@ public class TestProteinFolding {
         Heuristic<State> h = problem.buildHeuristic();
 
         // === Test 4: Best First Greedy ===
-        Agent<State, Action> agentGreedy = new Agent<>(new BestFirstGreedySearch<>(h, true));
+        StateSpaceAgent<State, Action> agentGreedy = new StateSpaceAgent<>(new BestFirstGreedySearch<>(h, true));
         List<Action> planGreedy = agentGreedy.findPlan(problem);
         System.out.println( agentGreedy.getSearchReport(planGreedy, problem) + printFoldingResult(problem, planGreedy) );
 
         // === Test 5: A* ===
-        Agent<State, Action> agentAstar = new Agent<>(new AstarSearch<>(h, true));
+        StateSpaceAgent<State, Action> agentAstar = new StateSpaceAgent<>(new AstarSearch<>(h, true));
         List<Action> planAstar = agentAstar.findPlan(problem);
         System.out.println( agentAstar.getSearchReport(planAstar, problem) + printFoldingResult(problem, planAstar) );
     }

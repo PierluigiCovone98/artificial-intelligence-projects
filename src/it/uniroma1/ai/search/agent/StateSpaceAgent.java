@@ -3,6 +3,7 @@ package it.uniroma1.ai.search.agent;
 import it.uniroma1.ai.search.node.Node;
 import it.uniroma1.ai.search.problem.AbstractProblem;
 import it.uniroma1.ai.search.algorithm.statespace.AbstractStateSpaceSearch;
+import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,15 +13,14 @@ import java.util.ArrayList;
  * An Agent instance needs to know which kind of search it has to perform.
  * It has the capability of retrieve solution from a given node.
  */
-public class Agent<S, A> {
+public class StateSpaceAgent<S, A> {
 
-    // TODO: IT HERE SHOULD HAVE THE INSTANCE OF THE INTERFACE THAT IMPLEMENTS THE search() algorithm.
     private final AbstractStateSpaceSearch<S, A> searchAlgorithm;
 
     /**
      * Constructor.
      */
-    public Agent(AbstractStateSpaceSearch<S, A> searchAlgorithm) {
+    public StateSpaceAgent(AbstractStateSpaceSearch<S, A> searchAlgorithm) {
         this.searchAlgorithm = searchAlgorithm;
     }
 
@@ -47,7 +47,7 @@ public class Agent<S, A> {
     /**
      * Method to plan a solution.
      */
-    public List<A> findPlan(AbstractProblem<S, A> problem) {
+    public List<A> findPlan(AbstractStateSpaceProblem<S, A> problem) {
 
         // 1. Search the objective node
         Node<S, A> objectiveNode = searchAlgorithm.search(problem);
