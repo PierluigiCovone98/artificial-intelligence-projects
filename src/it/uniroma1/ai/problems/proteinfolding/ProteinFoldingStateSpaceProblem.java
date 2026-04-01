@@ -173,7 +173,6 @@ public class ProteinFoldingStateSpaceProblem extends AbstractStateSpaceProblem<S
     // === HEURISTIC METHODS ===
 
     /**
-     * TODO: It could be pre-computed and access in an efficient way.
      * Estimates remaining cost based on the number of "H" amino acids still to be placed.
      */
     public Heuristic<State> buildHeuristic() {
