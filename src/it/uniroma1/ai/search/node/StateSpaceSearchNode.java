@@ -3,7 +3,7 @@ package it.uniroma1.ai.search.node;
 import java.util.Optional;
 
 /**
- * Generic class to represent a Node in the Search Tree.
+ * Generic class to represent a Node in the State Space Search family of algorithms.
  */
 public class StateSpaceSearchNode<S, A> {
 
