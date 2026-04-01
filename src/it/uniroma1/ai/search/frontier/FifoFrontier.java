@@ -1,6 +1,6 @@
 package it.uniroma1.ai.search.frontier;
 
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class FifoFrontier<S, A> implements Frontier<S, A> {
 
-    private final Queue<Node<S, A>> frontier;
+    private final Queue<StateSpaceSearchNode<S, A>> frontier;
 
     /**
      * Constructor.
@@ -23,7 +23,7 @@ public class FifoFrontier<S, A> implements Frontier<S, A> {
      * Add a node to the frontier.
      */
     @Override
-    public void add(Node<S, A> node) {
+    public void add(StateSpaceSearchNode<S, A> node) {
         frontier.add(node);
     }
 
@@ -31,7 +31,7 @@ public class FifoFrontier<S, A> implements Frontier<S, A> {
      * Removes the first element of the queue.
      */
     @Override
-    public Node<S, A> remove() {
+    public StateSpaceSearchNode<S, A> remove() {
         return frontier.poll();
     }
 

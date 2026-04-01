@@ -1,6 +1,6 @@
 package it.uniroma1.ai.search.agent;
 
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 import it.uniroma1.ai.search.problem.AbstractProblem;
 import it.uniroma1.ai.search.algorithm.statespace.AbstractStateSpaceSearch;
 import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
@@ -50,7 +50,7 @@ public class StateSpaceAgent<S, A> {
     public List<A> findPlan(AbstractStateSpaceProblem<S, A> problem) {
 
         // 1. Search the objective node
-        Node<S, A> objectiveNode = searchAlgorithm.search(problem);
+        StateSpaceSearchNode<S, A> objectiveNode = searchAlgorithm.search(problem);
 
         // Return a plan for the problem (a solution).
         if (objectiveNode != null)
@@ -64,7 +64,7 @@ public class StateSpaceAgent<S, A> {
     /**
      * Compose the solution from a given Node (the objective one).
      */
-    private List<A> getSolution(Node<S, A> node) {
+    private List<A> getSolution(StateSpaceSearchNode<S, A> node) {
 
         // Prepare the output.
         ArrayList<A> solution = new ArrayList<A>();

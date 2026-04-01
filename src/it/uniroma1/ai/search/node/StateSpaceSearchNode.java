@@ -5,9 +5,9 @@ import java.util.Optional;
 /**
  * Generic class to represent a Node in the Search Tree.
  */
-public class Node<S, A> {
+public class StateSpaceSearchNode<S, A> {
 
-    private Node<S, A> parent;
+    private StateSpaceSearchNode<S, A> parent;
 
     private S state;
     private A action;
@@ -18,16 +18,16 @@ public class Node<S, A> {
     /**
      * Private constructor does not allow wrong initializations from the outside.
      */
-    private Node () {
+    private StateSpaceSearchNode() {
         // empty
     }
 
     /**
      * Factory method to create the root node.
      */
-    public static <S, A> Node<S, A> createRoot(S state) {
+    public static <S, A> StateSpaceSearchNode<S, A> createRoot(S state) {
         // 1. Create a node with default values
-        Node<S, A> root = new Node<>();
+        StateSpaceSearchNode<S, A> root = new StateSpaceSearchNode<>();
 
         // 2. Setting fields
         root.parent = null;
@@ -44,10 +44,10 @@ public class Node<S, A> {
     /**
      * Factory method to create a child.
      */
-    public static <S, A> Node<S, A> createChild(Node<S, A> parent, S state, A action, double stepCost) {
+    public static <S, A> StateSpaceSearchNode<S, A> createChild(StateSpaceSearchNode<S, A> parent, S state, A action, double stepCost) {
 
         // 1. Create a node with default values
-        Node<S, A> child = new Node<>();
+        StateSpaceSearchNode<S, A> child = new StateSpaceSearchNode<>();
 
         // 2. Setting fields
         child.parent = parent;
@@ -65,7 +65,7 @@ public class Node<S, A> {
      * Get parent.
      * Return an Optional instance if the parent is null.
      */
-    public Optional< Node<S, A> > getParent() {
+    public Optional<StateSpaceSearchNode<S, A>> getParent() {
         return Optional.ofNullable(parent);
     }
 

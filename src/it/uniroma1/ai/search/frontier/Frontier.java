@@ -1,6 +1,6 @@
 package it.uniroma1.ai.search.frontier;
 
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 
 /**
  * Minimal (required) contract to interact with a custom frontier.
@@ -10,12 +10,12 @@ public interface Frontier<S, A> {
     /**
      * Add a node to the underlining collection.
      */
-    void add(Node<S, A> node);
+    void add(StateSpaceSearchNode<S, A> node);
 
     /**
      * Remove a node from the underlining collection.
      */
-    Node<S, A> remove();
+    StateSpaceSearchNode<S, A> remove();
 
     /**
      * Check if the underlining collection is empty.

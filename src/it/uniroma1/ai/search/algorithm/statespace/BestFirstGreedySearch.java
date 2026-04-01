@@ -2,7 +2,7 @@ package it.uniroma1.ai.search.algorithm.statespace;
 
 import it.uniroma1.ai.search.frontier.NodeComparators;
 import it.uniroma1.ai.search.frontier.PriorityFrontier;
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
 /**
@@ -25,7 +25,8 @@ public class BestFirstGreedySearch<S, A> extends AbstractStateSpaceSearch<S, A> 
      * Goal test at extraction: optimality is not guaranteed.
      */
     @Override
-    protected Node<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
+    protected StateSpaceSearchNode<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem,
+                                                         StateSpaceSearchNode<S, A> node) {
 
         // Check if the node contains an objective State
         if ( problem.goalTest(node.getState()) )

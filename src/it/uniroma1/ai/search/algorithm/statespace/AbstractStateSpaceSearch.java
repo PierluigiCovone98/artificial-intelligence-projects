@@ -1,7 +1,7 @@
 package it.uniroma1.ai.search.algorithm.statespace;
 
 import it.uniroma1.ai.search.algorithm.SearchAlgorithm;
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 import it.uniroma1.ai.search.frontier.Frontier;
 import it.uniroma1.ai.search.problem.AbstractStateSpaceProblem;
 
@@ -13,7 +13,7 @@ import java.util.*;
  *  2. If it has (or not) to save explored states.
  */
 public abstract class AbstractStateSpaceSearch<S, A>
-        implements SearchAlgorithm< AbstractStateSpaceProblem<S, A>, Node<S, A> > {
+        implements SearchAlgorithm< AbstractStateSpaceProblem<S, A>, StateSpaceSearchNode<S, A>> {
 
     private final Frontier<S, A> frontier;
     private final boolean useExploredSet;       // Remember visited states?
@@ -43,7 +43,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
      * Wrap the main "search method" such that it can be computed execution time.
      */
     @Override
-    public Node<S, A> search(AbstractStateSpaceProblem<S, A> problem) {
+    public StateSpaceSearchNode<S, A> search(AbstractStateSpaceProblem<S, A> problem) {
         // Reset statistics
         resetStatistics();
 
@@ -51,7 +51,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
         long startTime = System.nanoTime();
 
         // Actual search
-        Node<S, A> searchResult = doSearch(problem);
+        StateSpaceSearchNode<S, A> searchResult = doSearch(problem);
 
         // Compute the execution time
         executionTimeNS = System.nanoTime() - startTime;
@@ -65,7 +65,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
      *  pieces of code that are common for every sub-implementation, remains in the (main) "search" method;
      *  those steps that are specific to a particular "search policy", are implemented in their own subclass.
      */
-    private Node<S, A> doSearch(AbstractStateSpaceProblem<S, A> problem) {
+    private StateSpaceSearchNode<S, A> doSearch(AbstractStateSpaceProblem<S, A> problem) {
 
         // Eventually prepare the explored data structure.
         Set<S> explored = null;
@@ -74,7 +74,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
             explored = new HashSet<>();
         }
 
-        Node<S, A> root = Node.createRoot(problem.getInitialState());
+        StateSpaceSearchNode<S, A> root = StateSpaceSearchNode.createRoot(problem.getInitialState());
 
         // Check if the initial state of the problem is the objective one.
         if (problem.goalTest(problem.getInitialState()))
@@ -89,14 +89,14 @@ public abstract class AbstractStateSpaceSearch<S, A>
             // UPDATE STATISTICS
             iterations++;
 
-            Node<S, A> currentNode = frontier.remove();
+            StateSpaceSearchNode<S, A> currentNode = frontier.remove();
 
             // Add it to the explored ones (if defined)
             if (useExploredSet)
                 explored.add( currentNode.getState() );
 
             // STEP 1: Check if the current Node is the Objective one [min-cost,]
-            Node<S, A> solution = onNodeExtracted(problem, currentNode);
+            StateSpaceSearchNode<S, A> solution = onNodeExtracted(problem, currentNode);
             if (solution != null) {
                 return solution;
             }
@@ -108,7 +108,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
                 S childState = problem.getResult(currentNode.getState(), action);
                 double childStepCost = problem.getStepCost(currentNode.getState(), action).doubleValue();
 
-                Node<S, A> childNode = Node.createChild(currentNode, childState, action, childStepCost);
+                StateSpaceSearchNode<S, A> childNode = StateSpaceSearchNode.createChild(currentNode, childState, action, childStepCost);
 
                 // Check the following:
                 //  1. If we use or not use the explored set, we enter the first if-statement;
@@ -155,7 +155,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
      * Extension point to check if the current extracted node contains an objective state.
      * By default, it returns null.
      */
-    protected Node<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem, Node<S, A> node) {
+    protected StateSpaceSearchNode<S, A> onNodeExtracted(AbstractStateSpaceProblem<S, A> problem, StateSpaceSearchNode<S, A> node) {
         // Default behavior: return null.
         return null;
     }
@@ -163,7 +163,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
     /**
      * Extension point that allows to manage a child node, based on the used "search policy".
      */
-    protected Node<S, A> handleChild(AbstractStateSpaceProblem<S, A> problem, Node<S, A> childNode) {
+    protected StateSpaceSearchNode<S, A> handleChild(AbstractStateSpaceProblem<S, A> problem, StateSpaceSearchNode<S, A> childNode) {
         // Default behavior: return null.
         return null;
     }
@@ -171,7 +171,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
     /**
      * Extension point that allows to substitute the given Node with the correct one in frontier.
      */
-    protected void swapNodes(Node<S, A> node) {
+    protected void swapNodes(StateSpaceSearchNode<S, A> node) {
         // Default behavior: do nothing.
     }
 

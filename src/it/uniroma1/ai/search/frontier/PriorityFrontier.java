@@ -1,6 +1,6 @@
 package it.uniroma1.ai.search.frontier;
 
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -12,13 +12,13 @@ import java.util.PriorityQueue;
  */
 public class PriorityFrontier<S, A> implements Frontier<S, A> {
 
-    private final PriorityQueue< Node<S, A> > frontier;
+    private final PriorityQueue<StateSpaceSearchNode<S, A>> frontier;
 
     /**
      * Constructor.
      * The given comparator determines the extraction order.
      */
-    public PriorityFrontier(Comparator< Node<S, A> > nodeComparator) {
+    public PriorityFrontier(Comparator<StateSpaceSearchNode<S, A>> nodeComparator) {
         this.frontier = new PriorityQueue<>(nodeComparator);
     }
 
@@ -26,7 +26,7 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
      * Add a node to the priority frontier.
      */
     @Override
-    public void add(Node<S, A> node) {
+    public void add(StateSpaceSearchNode<S, A> node) {
         this.frontier.add(node);
     }
 
@@ -34,7 +34,7 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
      * Extract the highest-priority node (lowest value according to comparator).
      */
     @Override
-    public Node<S, A> remove() {
+    public StateSpaceSearchNode<S, A> remove() {
         return this.frontier.poll();
     }
 
@@ -58,7 +58,7 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
     /**
      * Get the Node in frontier that has "state" as "node.state" value, null otherwise.
      */
-    public Node<S, A> getNode(S state) {
+    public StateSpaceSearchNode<S, A> getNode(S state) {
         return this.frontier.stream()
                             .filter(n -> n.getState().equals(state))
                             .findFirst()
@@ -68,7 +68,7 @@ public class PriorityFrontier<S, A> implements Frontier<S, A> {
     /**
      * Removes a specific node from the frontier.
      */
-    public boolean removeNode(Node<S, A> node) {
+    public boolean removeNode(StateSpaceSearchNode<S, A> node) {
         return this.frontier.remove(node);
     }
 

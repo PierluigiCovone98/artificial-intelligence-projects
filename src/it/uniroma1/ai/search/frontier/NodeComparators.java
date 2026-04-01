@@ -1,6 +1,6 @@
 package it.uniroma1.ai.search.frontier;
 
-import it.uniroma1.ai.search.node.Node;
+import it.uniroma1.ai.search.node.StateSpaceSearchNode;
 import it.uniroma1.ai.search.algorithm.statespace.Heuristic;
 
 import java.util.Comparator;
@@ -22,8 +22,8 @@ public class NodeComparators {
     /**
      * Compare nodes by path cost (ascending order).
      */
-    public static <S, A> Comparator< Node<S, A> > byPathCost() {
-        return Comparator.comparingDouble(Node::getPathCost);
+    public static <S, A> Comparator<StateSpaceSearchNode<S, A>> byPathCost() {
+        return Comparator.comparingDouble(StateSpaceSearchNode::getPathCost);
     }
 
     /**
@@ -31,7 +31,7 @@ public class NodeComparators {
      * It takes in input a specific instance of the functional interface "Heuristic" and,
      * based on that, it compares the state of the node.
      */
-    public static <S, A> Comparator< Node<S, A> > byHeuristic(Heuristic<S> h) {
+    public static <S, A> Comparator<StateSpaceSearchNode<S, A>> byHeuristic(Heuristic<S> h) {
         return Comparator.comparingDouble( n ->  h.estimate(n.getState()) );
     }
 
@@ -42,7 +42,7 @@ public class NodeComparators {
      *      1) g(n) denotes the pathCost of the node "n";
      *      2) h(n) denotes the heuristic valued for the node "n";
      */
-    public static <S, A> Comparator< Node<S, A> > byFFunction(Heuristic<S> h) {
+    public static <S, A> Comparator<StateSpaceSearchNode<S, A>> byFFunction(Heuristic<S> h) {
         return Comparator.comparingDouble( n ->  n.getPathCost() + h.estimate(n.getState()) );
     }
 
