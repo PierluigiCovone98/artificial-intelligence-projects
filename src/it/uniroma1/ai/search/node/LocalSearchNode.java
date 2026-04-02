@@ -36,8 +36,4 @@ public class LocalSearchNode<S> {
      * Get the value.
      */
     public Number getValue() { return value; }
-
-
-
-
 }
