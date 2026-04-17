@@ -11,8 +11,8 @@ public abstract class AbstractLocalProblem<S, A> extends AbstractProblem<S, A> {
 
     /**
      * Evaluate the quality of a given state.
-     * Higher values, indicate better states for maximization problems;
-     * lower values, for minimization problems.
+     * The sub-problem must override it, and then specify
+     * the way a certain state (for that problem) is evaluated.
      */
     public abstract Number evaluate(S state);
 }
