@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 
 /**
- * Factory methods for Node comparators used by PriorityFrontier.
+ * Factory class for Node comparators used by PriorityFrontier.
  */
 public class NodeComparators {
 

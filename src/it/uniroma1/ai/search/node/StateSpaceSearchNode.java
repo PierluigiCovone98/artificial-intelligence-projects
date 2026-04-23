@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Generic class to represent a Node in the State Space Search family of algorithms.
  */
-public class StateSpaceSearchNode<S, A> {
+public final class StateSpaceSearchNode<S, A> {
 
     private StateSpaceSearchNode<S, A> parent;
 
@@ -25,14 +25,14 @@ public class StateSpaceSearchNode<S, A> {
     /**
      * Factory method to create the root node.
      */
-    public static <S, A> StateSpaceSearchNode<S, A> createRoot(S state) {
+    public static <S, A> StateSpaceSearchNode<S, A> createRoot(S initialState) {
         // 1. Create a node with default values
         StateSpaceSearchNode<S, A> root = new StateSpaceSearchNode<>();
 
         // 2. Setting fields
         root.parent = null;
 
-        root.state = state;
+        root.state = initialState;
         root.action = null;
 
         root.depth = 0;

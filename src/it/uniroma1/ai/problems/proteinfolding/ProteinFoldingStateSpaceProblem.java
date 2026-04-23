@@ -28,6 +28,8 @@ public class ProteinFoldingStateSpaceProblem extends AbstractStateSpaceProblem<S
         String[] stringProteinAminoAcids = protein.split("");
 
         for (int i = 0; i < proteinLength; i++) {
+            // Notice that, here we assume that there are no "lower-case" characters in the input string
+            // neither characters that differs from "H" or "P".
             result[i] = AminoAcid.valueOf(stringProteinAminoAcids[i]);
         }
 

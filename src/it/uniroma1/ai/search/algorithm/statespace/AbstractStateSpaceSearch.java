@@ -13,7 +13,7 @@ import java.util.*;
  *  2. If it has (or not) to save explored states.
  */
 public abstract class AbstractStateSpaceSearch<S, A>
-        implements SearchAlgorithm< AbstractStateSpaceProblem<S, A>, StateSpaceSearchNode<S, A>> {
+        implements SearchAlgorithm< AbstractStateSpaceProblem<S, A>, StateSpaceSearchNode<S, A> > {
 
     private final Frontier<S, A> frontier;
     private final boolean useExploredSet;       // Remember visited states?
@@ -102,11 +102,12 @@ public abstract class AbstractStateSpaceSearch<S, A>
             }
 
             // For each possible action reachable from the "currentNode.state"
-            for (A action : problem.getActions(currentNode.getState())) {
+            S currentState = currentNode.getState();
+            for (A action : problem.getActions(currentState)) {
 
                 // 1. Create the child node
-                S childState = problem.getResult(currentNode.getState(), action);
-                double childStepCost = problem.getStepCost(currentNode.getState(), action).doubleValue();
+                S childState = problem.getResult(currentState, action);
+                double childStepCost = problem.getStepCost(currentState, action).doubleValue();
 
                 StateSpaceSearchNode<S, A> childNode = StateSpaceSearchNode.createChild(currentNode, childState, action, childStepCost);
 
