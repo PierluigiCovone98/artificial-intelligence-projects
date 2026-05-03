@@ -18,4 +18,4 @@ public abstract class AbstractStateSpaceProblem<S, A> extends AbstractProblem<S,
      * Determine if the given state (of type S) satisfies the objective.
      */
     public abstract boolean goalTest(S state);
-}
+}   // TODO: ADD BUDGET LOCAL SEARCH

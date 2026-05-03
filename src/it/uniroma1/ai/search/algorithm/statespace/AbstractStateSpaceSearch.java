@@ -96,6 +96,7 @@ public abstract class AbstractStateSpaceSearch<S, A>
                 explored.add( currentNode.getState() );
 
             // STEP 1: Check if the current Node is the Objective one [min-cost,]
+            // TODO: Change to all algorithms
             StateSpaceSearchNode<S, A> solution = onNodeExtracted(problem, currentNode);
             if (solution != null) {
                 return solution;

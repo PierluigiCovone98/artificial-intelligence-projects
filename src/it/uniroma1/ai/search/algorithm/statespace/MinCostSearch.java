@@ -47,6 +47,7 @@ public class MinCostSearch<S, A> extends AbstractStateSpaceSearch<S, A> {
         StateSpaceSearchNode<S, A> oldNode = frontier.getNode(node.getState());
 
         // 3. Swap nodes
+        // TODO: Move to the "frontier.add()" code
         if ( (oldNode != null)
                 && (node.getPathCost() < oldNode.getPathCost()) ) {
                 frontier.removeNode(oldNode);

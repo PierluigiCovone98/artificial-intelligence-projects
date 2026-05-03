@@ -45,6 +45,7 @@ public class State {
         // Notice: For different instances of the same class it is possible to
         //         access members declared "private" (they know the implementation)
         //         because of the same class.
+        // TODO: Cloning the entire grid:   delta OR hashing
         Map<Position, AminoAcid> childGrid = new HashMap<>(parent.grid);
 
         // Extend the grid by adding the new amino acid
@@ -97,6 +98,7 @@ public class State {
         if (this.getClass() != o.getClass())
             return false;
         State state = (State) o;
+        // TODO: If "hashing", compare hash-values
         return this.grid.equals(state.grid) && this.lastPlaced.equals(state.lastPlaced);
     }
 
