@@ -5,7 +5,6 @@ import it.uniroma1.ai.search.problem.AbstractLocalProblem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Implementation of the Steepest Ascent/Descent Algorithm.
