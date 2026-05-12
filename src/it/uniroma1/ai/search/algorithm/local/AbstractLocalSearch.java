@@ -14,7 +14,7 @@ import java.util.Random;
 public abstract class AbstractLocalSearch<S, A>
         implements SearchAlgorithm< AbstractLocalProblem<S, A> , S > {
 
-    private final boolean maximize;                 // By default, maximize; otherwise: minimize.
+    private final boolean maximize;                 // By default, is true; otherwise: minimize.
     private final int useRestarts;                  // If 0, no restarts are used.
 
     // === Randomness ===
@@ -70,7 +70,7 @@ public abstract class AbstractLocalSearch<S, A>
 
         while (true) {
 
-            // 1. It's useful to handle them "fast"
+            // 1. It's useful to have them "hand-on"
             S currentState = currentNode.getState();
             double currentValue = currentNode.getValue().doubleValue();
 
@@ -86,7 +86,7 @@ public abstract class AbstractLocalSearch<S, A>
             // For example:
             //  - Steepest ascent   -> Choose the one with a higher value;
             //  - FCHC              -> Choose the one with a higher or equal value.
-            LocalSearchNode<S> nextNode = selectNeighbor(neighbors, currentNode, problem);
+            LocalSearchNode<S> nextNode = selectNeighbor(neighbors, /*currentNode,*/ currentValue, problem);
 
             if (nextNode == null)
                 // It is null if (for example):
@@ -103,7 +103,7 @@ public abstract class AbstractLocalSearch<S, A>
      * Extension point to select the next neighbor based on the policy adopted by the search algorithm.
      * By default, it returns null.
      */
-    protected LocalSearchNode<S> selectNeighbor(List<S> neighbors, LocalSearchNode<S> currentNode, AbstractLocalProblem<S, A> problem) {
+    protected LocalSearchNode<S> selectNeighbor(List<S> neighbors, double valueCurrentNode, AbstractLocalProblem<S, A> problem) {
         // Default behavior: return null.
         return null;
     }
@@ -116,8 +116,8 @@ public abstract class AbstractLocalSearch<S, A>
      *  - "a" is the "current value" and
      *  - "b" is the "best value"
      */
-    private boolean isBetter(double a, double b) {
-        return maximize ? a < b : a > b;
+    protected boolean isBetter(double a, double b) {
+        return maximize ? a > b : a < b;
     }
 
     // === AUXILIARY METHODS ===
@@ -132,5 +132,12 @@ public abstract class AbstractLocalSearch<S, A>
      */
     protected boolean isUseRestarts() {
         return useRestarts > 0;
+    }
+
+    /**
+     * Get the Random instance field.
+     */
+    protected Random getRandomInstance() {
+        return randomInstance;
     }
 }
