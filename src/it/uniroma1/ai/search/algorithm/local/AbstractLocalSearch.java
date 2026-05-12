@@ -65,56 +65,43 @@ public abstract class AbstractLocalSearch<S, A>
         // Initial problem state.
         S initialState = problem.getInitialState();
 
-        // Re-use the same variable (notice that: the evaluation of a state, depends on the kind of problem).
+        // Re-use the same variable (notice that: the evaluation of a state depends on the kind of problem).
         LocalSearchNode<S> currentNode = LocalSearchNode.createNode(initialState, problem.evaluate(initialState));
 
+        // Continue until a local optimum is not found.
         while (true) {
-
-            // 1. It's useful to have them "hand-on"
-            S currentState = currentNode.getState();
-            double currentValue = currentNode.getValue().doubleValue();
-
-            // 2. Notice that it is not necessary to see all neighbors for
-            //    Hill Climbing (IDK if also for Simulated Annealing).
-            // TODO: Check if it must become an extention point.
-            List<S> neighbors = problem.getActions(currentState)
-                    .stream()
-                    .map(move -> problem.getResult(currentState, move))
-                    .toList();
 
             // Extension point 1: each algorithm decides how to pick the next state.
             // For example:
             //  - Steepest ascent   -> Choose the one with a higher value;
             //  - FCHC              -> Choose the one with a higher or equal value.
-            LocalSearchNode<S> nextNode = selectNeighbor(neighbors, /*currentNode,*/ currentValue, problem);
+            LocalSearchNode<S> nextNode = selectNeighbor(currentNode, problem);
 
+            // No better neighbor have been found: local optimum.
             if (nextNode == null)
-                // It is null if (for example):
-                //  1. There are no better neighbors
-                //  2. [...]
-                return currentState;
+                return currentNode.getState();
             else
+                // Otherwise, continue with the new neighbor
                 currentNode = nextNode;
         }
     }
 
     // === TEMPLATE METHOD Steps (methods to be implemented) ===
+
     /**
-     * Extension point to select the next neighbor based on the policy adopted by the search algorithm.
+     * Extension point to select the next neighbor based on the policy adopted by the (specific) search algorithm.
      * By default, it returns null.
      */
-    protected LocalSearchNode<S> selectNeighbor(List<S> neighbors, double valueCurrentNode, AbstractLocalProblem<S, A> problem) {
+    protected LocalSearchNode<S> selectNeighbor(LocalSearchNode<S> currentNode, AbstractLocalProblem<S, A> problem) {
         // Default behavior: return null.
         return null;
     }
+
 
     // === UTILITY METHODS ===
 
     /**
      * Compare two values according the optimization direction.
-     * Please notice that:
-     *  - "a" is the "current value" and
-     *  - "b" is the "best value"
      */
     protected boolean isBetter(double a, double b) {
         return maximize ? a > b : a < b;

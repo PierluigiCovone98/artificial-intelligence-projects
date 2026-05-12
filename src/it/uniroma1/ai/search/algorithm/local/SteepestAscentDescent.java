@@ -25,19 +25,28 @@ public class SteepestAscentDescent<S, A> extends AbstractLocalSearch<S,A> {
      * In Steepest Ascent/Descent the algorithm explores the neighbor iff
      * it is evaluated with a "value" that is strictly better than "valueCurrentNode".
      */
-    protected LocalSearchNode<S> selectNeighbor(List<S> neighbors,
-                                                double valueCurrentNode,
-                                                AbstractLocalProblem<S, A> problem) {
+    @Override
+    protected LocalSearchNode<S> selectNeighbor(LocalSearchNode<S> currentNode, AbstractLocalProblem<S, A> problem) {
 
-        // Neighbors that have the best "value"
+        S currentState = currentNode.getState();
+        double valueCurrentNode = currentNode.getValue().doubleValue();
+
+        // See all neighbors og the "currentNode.state"
+        List<S> neighbors = problem.getActions(currentState)
+                .stream()
+                .map(move -> problem.getResult(currentState, move))
+                .toList();
+
+
+        // These are neighbors that have the "best value".
         List<S> bestNeighbors = new ArrayList<>();
+
 
         double bestValue = isMaximize() ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
 
         // First we choose only those neighbors that have the "best value"
         for (S n : neighbors) {
 
-            // The value of the neighbor
             double valueNeighbor = problem.evaluate(n).doubleValue();
 
             // It enters this if-statement iff:
@@ -57,7 +66,6 @@ public class SteepestAscentDescent<S, A> extends AbstractLocalSearch<S,A> {
             } else if (bestValue == valueNeighbor) {
                 bestNeighbors.add(n);
             }
-
         }
 
         if ( isBetter(bestValue, valueCurrentNode) ) {
